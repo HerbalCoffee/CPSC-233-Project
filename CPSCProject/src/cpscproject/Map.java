@@ -25,7 +25,11 @@ public class Map {
 			String line = map.nextLine();
 			for ( int column = 0; column < mapLayout[0].length;column++) {
 					char character = line.charAt(column);
-					this.mapLayout[column][row] = character;
+					if (character != 'O') {
+						this.mapLayout[column][row] = character;
+					} else {
+						this.mapLayout[column][row] = ' ';
+					}
 			}
 		}		
 
@@ -34,16 +38,9 @@ public class Map {
 		
 	}
 	
-	// Method that creates a copy of the mapLayout instance variable, and then returns the char 
-	// present at the specified location. Returns a char
-	public char getElement(int row, int column) {
-		char[][] mapLayoutCopy = new char[this.mapLayout.length][this.mapLayout[0].length];
-		for( int indexRow = 0; indexRow < mapLayout.length;indexRow++) {
-			for ( int indexColumn = 0; indexColumn < mapLayout[0].length;indexColumn++) {
-				mapLayoutCopy[indexRow][indexColumn] = this.mapLayout[indexRow][indexColumn];
-			}
-		}	
-		return mapLayoutCopy[row][column];
+	// Method that returns the element present in the map, at the given location, as a char
+	public char getElement(int row, int column) {	
+		return mapLayout[row][column];
 	}
 	
 	// Method that checks whether the inputed location is a Wall, and returns a boolean
