@@ -1,3 +1,5 @@
+package cpscproject;
+
 
 // Imports all necessary libraries
 import java.util.Scanner;
