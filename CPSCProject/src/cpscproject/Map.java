@@ -56,4 +56,10 @@ public class Map {
 		this.mapLayout[row][column] = 'X';
 	}
 	
+	// Void Method that replaces a location in the map with an inputted character
+	public void replaceElement(int row, int column, char charToReplaceWith) {
+		this.mapLayout[row][column] = charToReplaceWith;
+		
+	}
+	
 }
