@@ -5,6 +5,8 @@
  */
 package cpscproject;
 
+import java.io.FileNotFoundException;
+
 /**
  *
  * @author ksl
@@ -14,9 +16,15 @@ public class TextApp {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println("Hello World!");
+    public static void main(String[] args) throws FileNotFoundException {
+        
+        //Declare new map instance
+        Map theMap = new Map("src/cpscproject/Map1.txt");
+        
+        //Print the map
+        for(int i = 0; i < theMap.mapLayout.length; i++){
+            System.out.println(theMap.mapLayout[i]);
+        }
     }
     
 }
