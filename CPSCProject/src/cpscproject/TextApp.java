@@ -17,6 +17,8 @@ public class TextApp {
     /**
      * @param args the command line arguments
      */
+    
+    
     public static void main(String[] args) throws FileNotFoundException {
         
         //Declare new map instance
@@ -97,10 +99,26 @@ public class TextApp {
                     System.out.println("Enter only a w, a, s, d, or q!");
             }
             
+            doSpecialActions(theMap, playerX, playerY);
             theMap.replaceElement(oldPlayerY, oldPlayerX, ' ');
         
         } while(run);
         
     }
+    
+    public static void doSpecialActions(Map aMap, int xLoc, int yLoc){
+        char currInLoc = aMap.getElement(yLoc, xLoc);
+        if(currInLoc == 'I'){
+            System.out.println("You picked up an Iron Sword!");
+        }
+        if(currInLoc == 'H'){
+            System.out.println("You picked up a health potion!");
+        }
+        if(currInLoc == 'E'){
+            System.out.println("You killed an enemy!");
+        }
+    }
+    
+    
     
 }
