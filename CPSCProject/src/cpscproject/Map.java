@@ -26,9 +26,9 @@ public class Map {
 			for ( int column = 0; column < mapLayout[0].length;column++) {
 					char character = line.charAt(column);
 					if (character != 'O') {
-						this.mapLayout[column][row] = character;
+						this.mapLayout[row][column] = character;
 					} else {
-						this.mapLayout[column][row] = ' ';
+						this.mapLayout[row][column] = ' ';
 					}
 			}
 		}		
