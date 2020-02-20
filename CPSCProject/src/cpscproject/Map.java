@@ -11,7 +11,7 @@ import java.io.FileReader;
 public class Map {
 
 	// Instantiates a 2D array of characters
-	char[][] mapLayout = new char[10][10];
+	char[][] mapLayout = new char[10][15];
 	
 	
 	// Constructor Method that uses the Scanner class to add individual characters from a text file and adds
