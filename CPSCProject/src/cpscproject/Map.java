@@ -1,5 +1,3 @@
-package cpscproject;
-
 
 // Imports all necessary libraries
 import java.util.Scanner;
@@ -12,6 +10,8 @@ public class Map {
 
 	// Instantiates a 2D array of characters
 	char[][] mapLayout = new char[10][15];
+	private int exitX;
+	private int exitY;
 	
 	
 	// Constructor Method that uses the Scanner class to add individual characters from a text file and adds
@@ -25,10 +25,16 @@ public class Map {
 			String line = map.nextLine();
 			for ( int column = 0; column < mapLayout[0].length;column++) {
 					char character = line.charAt(column);
+					
+					if (character == 'C') {
+						this.exitX = column;
+						this.exitY = row;
+					}
+					
 					if (character != 'O') {
-						this.mapLayout[row][column] = character;
+						this.mapLayout[column][row] = character;
 					} else {
-						this.mapLayout[row][column] = ' ';
+						this.mapLayout[column][row] = ' ';
 					}
 			}
 		}		
@@ -55,10 +61,18 @@ public class Map {
 		this.mapLayout[row][column] = 'X';
 	}
 	
-	// Void Method that replaces a location in the map with an inputted character
+	// Void Method that replaces a location in the map with an inputed character
 	public void replaceElement(int row, int column, char charToReplaceWith) {
 		this.mapLayout[row][column] = charToReplaceWith;
 		
 	}
 	
+	// Getter for the Exit Coordinates
+	public int getExitX() {
+		return this.exitX;
+	}
+	
+	public int getExitY() {
+		return this.exitY;
+	}
 }
