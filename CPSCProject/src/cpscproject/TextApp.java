@@ -31,8 +31,8 @@ public class TextApp {
         //Randomly select a place for the player to spawn
         boolean spawned = false;
         while(!spawned){
-            int spawnPointX = (int)(Math.random() * 10);
-            int spawnPointY = (int)(Math.random() * 10);
+            int spawnPointX = (int)(Math.random() * theMap.mapLayout[0].length);
+            int spawnPointY = (int)(Math.random() * theMap.mapLayout.length);
             if(theMap.getElement(spawnPointY, spawnPointX) == ' '){
                 spawned = true;
                 playerX = spawnPointX;
@@ -46,9 +46,10 @@ public class TextApp {
         String direction;
         int oldPlayerX = -1;
         int oldPlayerY = -1;
-        
-        
+        String special = "";
+       
         do{
+            
             // Set the player's location
             theMap.setPlayer(playerY, playerX);
             oldPlayerX = playerX;
@@ -59,6 +60,8 @@ public class TextApp {
                 System.out.println(theMap.mapLayout[i]);
             }
             
+            System.out.println(special);
+        
             //Change player location based on user input
             System.out.println("Select a direction: w = up, a = left, s = down, d = right (q to quit)");
             direction = control.next();
@@ -99,24 +102,26 @@ public class TextApp {
                     System.out.println("Enter only a w, a, s, d, or q!");
             }
             
-            doSpecialActions(theMap, playerX, playerY);
+            special = doSpecialActions(theMap, playerX, playerY);
+            
             theMap.replaceElement(oldPlayerY, oldPlayerX, ' ');
-        
+            
         } while(run);
         
     }
     
-    public static void doSpecialActions(Map aMap, int xLoc, int yLoc){
+    public static String doSpecialActions(Map aMap, int xLoc, int yLoc){
         char currInLoc = aMap.getElement(yLoc, xLoc);
         if(currInLoc == 'I'){
-            System.out.println("You picked up an Iron Sword!");
+            return "You picked up an Iron Sword!";
         }
         if(currInLoc == 'H'){
-            System.out.println("You picked up a health potion!");
+            return "You picked up a health potion!";
         }
         if(currInLoc == 'E'){
-            System.out.println("You killed an enemy!");
+            return "You killed an enemy!";
         }
+        return "";
     }
     
     

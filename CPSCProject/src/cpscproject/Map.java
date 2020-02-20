@@ -1,4 +1,4 @@
-
+package cpscproject;
 // Imports all necessary libraries
 import java.util.Scanner;
 import java.io.FileNotFoundException;
@@ -32,9 +32,9 @@ public class Map {
 					}
 					
 					if (character != 'O') {
-						this.mapLayout[column][row] = character;
+						this.mapLayout[row][column] = character;
 					} else {
-						this.mapLayout[column][row] = ' ';
+						this.mapLayout[row][column] = ' ';
 					}
 			}
 		}		
