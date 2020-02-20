@@ -17,29 +17,27 @@ public class TextApp {
     /**
      * @param args the command line arguments
      */
-    
-    
     public static void main(String[] args) throws FileNotFoundException {
-        
+
         //Declare new map instance
         Map theMap = new Map("src/cpscproject/Map1.txt");
-        
+
         //(Temporarily) create variables for player x and y location
         int playerX = -1;
         int playerY = -1;
-        
+
         //Randomly select a place for the player to spawn
         boolean spawned = false;
-        while(!spawned){
-            int spawnPointX = (int)(Math.random() * theMap.mapLayout[0].length);
-            int spawnPointY = (int)(Math.random() * theMap.mapLayout.length);
-            if(theMap.getElement(spawnPointY, spawnPointX) == ' '){
+        while (!spawned) {
+            int spawnPointX = (int) (Math.random() * theMap.mapLayout[0].length);
+            int spawnPointY = (int) (Math.random() * theMap.mapLayout.length);
+            if (theMap.getElement(spawnPointY, spawnPointX) == ' ') {
                 spawned = true;
                 playerX = spawnPointX;
                 playerY = spawnPointY;
             }
         }
-        
+
         //Instantiate the game loop
         boolean run = true;
         Scanner control = new Scanner(System.in);
@@ -47,83 +45,89 @@ public class TextApp {
         int oldPlayerX = -1;
         int oldPlayerY = -1;
         String special = "";
-       
-        do{
-            
+
+        do {
+
             // Set the player's location
             theMap.setPlayer(playerY, playerX);
             oldPlayerX = playerX;
             oldPlayerY = playerY;
-            
+
             //Print the map
-            for(int i = 0; i < theMap.mapLayout.length; i++){
+            for (int i = 0; i < theMap.mapLayout.length; i++) {
                 System.out.println(theMap.mapLayout[i]);
             }
-            
+
             System.out.println(special);
-        
-            //Change player location based on user input
-            System.out.println("Select a direction: w = up, a = left, s = down, d = right (q to quit)");
-            direction = control.next();
-            switch(direction){
-                case "q":
-                    System.out.println("Thanks for playing!");
-                    run = false;
-                    break;
-                case "w":
-                    if(theMap.isValidMove(playerY - 1, playerX)){
-                        playerY -= 1;
-                    } else {
-                        System.out.println("Invalid Move!");
-                    }
-                    break;
-                case "a":
-                    if(theMap.isValidMove(playerY, playerX - 1)){
-                        playerX -= 1;
-                    } else {
-                        System.out.println("Invalid Move!");
-                    }
-                    break;
-                case "s":
-                    if(theMap.isValidMove(playerY + 1, playerX)){
-                        playerY += 1;
-                    } else {
-                        System.out.println("Invalid Move!");
-                    }
-                    break;
-                case "d":
-                    if(theMap.isValidMove(playerY, playerX + 1)){
-                        playerX += 1;
-                    } else {
-                        System.out.println("Invalid Move!");
-                    }
-                    break;
-                default:
-                    System.out.println("Enter only a w, a, s, d, or q!");
+
+            if (special.contains("exit")) {
+                System.out.println("Thanks for playing!");
+                run = false;
+            } else {
+                //Change player location based on user input
+                System.out.println("Select a direction: w = up, a = left, s = down, d = right (q to quit)");
+                direction = control.next();
+                switch (direction) {
+                    case "q":
+                        System.out.println("Thanks for playing!");
+                        run = false;
+                        break;
+                    case "w":
+                        if (theMap.isValidMove(playerY - 1, playerX)) {
+                            playerY -= 1;
+                        } else {
+                            System.out.println("Invalid Move!");
+                        }
+                        break;
+                    case "a":
+                        if (theMap.isValidMove(playerY, playerX - 1)) {
+                            playerX -= 1;
+                        } else {
+                            System.out.println("Invalid Move!");
+                        }
+                        break;
+                    case "s":
+                        if (theMap.isValidMove(playerY + 1, playerX)) {
+                            playerY += 1;
+                        } else {
+                            System.out.println("Invalid Move!");
+                        }
+                        break;
+                    case "d":
+                        if (theMap.isValidMove(playerY, playerX + 1)) {
+                            playerX += 1;
+                        } else {
+                            System.out.println("Invalid Move!");
+                        }
+                        break;
+                    default:
+                        System.out.println("Enter only a w, a, s, d, or q!");
+                }
+
+                special = doSpecialActions(theMap, playerX, playerY);
+
+                theMap.replaceElement(oldPlayerY, oldPlayerX, ' ');
             }
-            
-            special = doSpecialActions(theMap, playerX, playerY);
-            
-            theMap.replaceElement(oldPlayerY, oldPlayerX, ' ');
-            
-        } while(run);
-        
+
+        } while (run);
+
     }
-    
-    public static String doSpecialActions(Map aMap, int xLoc, int yLoc){
+
+    public static String doSpecialActions(Map aMap, int xLoc, int yLoc) {
         char currInLoc = aMap.getElement(yLoc, xLoc);
-        if(currInLoc == 'I'){
+        if (currInLoc == 'I') {
             return "You picked up an Iron Sword!";
         }
-        if(currInLoc == 'H'){
+        if (currInLoc == 'H') {
             return "You picked up a health potion!";
         }
-        if(currInLoc == 'E'){
+        if (currInLoc == 'E') {
             return "You killed an enemy!";
+        }
+        if (currInLoc == 'C') {
+            return "You reached the exit";
         }
         return "";
     }
-    
-    
-    
+
 }
