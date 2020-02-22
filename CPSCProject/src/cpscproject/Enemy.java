@@ -6,7 +6,7 @@ public class Enemy {
 	double health;
 	double damage;
 	
-	public Enemy(Location enemyLocation, double health, double damage, double attackChance) {
+	public Enemy(Location enemyLocation, double health, double damage) {
 		this.enemyLocation = enemyLocation;
 		this.health = health;
 		this.damage = damage;
@@ -19,4 +19,6 @@ public class Enemy {
 	public void getDamaged(double damageInflicted) {
 		this.health = this.health - damageInflicted;
 	}
+        
+        
 }

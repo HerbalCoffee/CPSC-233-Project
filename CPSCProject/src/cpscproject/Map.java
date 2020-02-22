@@ -10,7 +10,7 @@ public class Map {
 
 	// Instantiates a 2D array of characters
 	char[][] mapLayout = new char[10][15];
-	private Location exit;
+	private Location exit = new Location(-1,-1);
 	
 	
 	// Constructor Method that uses the Scanner class to add individual characters from a text file and adds
@@ -25,10 +25,10 @@ public class Map {
 			for ( int column = 0; column < mapLayout[0].length;column++) {
 					char character = line.charAt(column);
 					
-					/*if (character == 'C') {
+					if (character == 'C') {
 						exit.setX(column);
 						exit.setY(row);
-					}*/
+					}
 					
 					if (character != 'O') {
 						this.mapLayout[row][column] = character;
