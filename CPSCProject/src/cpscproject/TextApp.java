@@ -42,7 +42,8 @@ public class TextApp {
         while(numEnemies < 3){
             Location aLocation = new Location((int)(Math.random()* theMap.mapLayout[0].length), (int)(Math.random()* theMap.mapLayout.length));
             if (theMap.getElement(aLocation) == ' ') {
-                theMap.setEnemy(aLocation);
+                Enemy theEnemy = new Enemy(new Location(aLocation), (int)(Math.random() * 10), (int)(Math.random() * 3));
+                theMap.addEnemy(theEnemy);
                 numEnemies++;
             }
         }
@@ -69,18 +70,23 @@ public class TextApp {
             if (special.contains("exit")) {
                 run = false;
             } else if(special.contains("enemy")){
-                Enemy theEnemy = new Enemy(new Location(thePlayer.getLocation()), (int)(Math.random() * 10), (int)(Math.random() * 3));
-                while(theEnemy.health > 0){
-                    System.out.println("Enemy Health: " + theEnemy.health);
+                Enemy anEnemy = null;
+                for(Enemy e : theMap.enemyList){
+                    if((e.getLocation().getX() == thePlayer.getLocation().getX()) && (e.getLocation().getY() == thePlayer.getLocation().getY()) ){
+                        anEnemy = e;
+                    }
+                }
+                while(anEnemy.health > 0){
+                    System.out.println("Enemy Health: " + anEnemy.health);
                     System.out.println("Press A to attack!");
                     direction = control.next();
                     if(direction.equalsIgnoreCase("a")){
-                        thePlayer.attack(theEnemy);
+                        thePlayer.attack(anEnemy);
                         System.out.println("The enemy attacked!");
-                        thePlayer.getDamage(theEnemy);
+                        thePlayer.getDamage(anEnemy);
                         System.out.println("Player Health: " + thePlayer.getHealth());
                         if(thePlayer.getHealth() <= 0){
-                            theEnemy.health = 0;
+                            anEnemy.health = 0;
                             run = false;
                         }
                     }

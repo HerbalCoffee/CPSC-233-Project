@@ -3,6 +3,7 @@ package cpscproject;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 
 // Creates Map Class 
@@ -10,7 +11,8 @@ public class Map {
 
 	// Instantiates a 2D array of characters
 	char[][] mapLayout = new char[10][15];
-	private Location exit = new Location(-1,-1);
+	private Location exit = null;
+	ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
 	
 	
 	// Constructor Method that uses the Scanner class to add individual characters from a text file and adds
@@ -26,8 +28,7 @@ public class Map {
 					char character = line.charAt(column);
 					
 					if (character == 'C') {
-						exit.setX(column);
-						exit.setY(row);
+                                            exit = new Location(column, row);
 					}
 					
 					if (character != 'O') {
@@ -74,6 +75,18 @@ public class Map {
 	// Getter for the Exit Coordinates
 	public Location getExit() {
 		return this.exit;
+	}
+	
+	// Method that adds an enemy to the list, as well as adds enemy location on the character map
+	public void addEnemy(Enemy newEnemy) {
+		enemyList.add(newEnemy);
+		this.mapLayout[newEnemy.getLocation().getY()][newEnemy.getLocation().getX()] = 'E';
+	}
+	
+	// Method that removes an enemy to the list, as well as adds enemy location on the character map
+	public void removeEnemy(Enemy newEnemy) {
+		enemyList.remove(newEnemy);
+		this.mapLayout[newEnemy.getLocation().getY()][newEnemy.getLocation().getX()] = ' ';
 	}
 	
 }
