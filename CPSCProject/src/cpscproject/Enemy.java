@@ -34,4 +34,11 @@ public class Enemy {
 	public double getHealth() {
 		return this.health;
 	}
+	
+	//Setter for Enemy Location and on the Map
+	public void setLocation(Map theMap, Location newLocation) {
+		theMap.mapLayout[this.enemyLocation.getY()][this.enemyLocation.getX()] = ' ';
+		this.enemyLocation = newLocation;
+		theMap.mapLayout[this.enemyLocation.getY()][this.enemyLocation.getX()] = 'E';
+	}
 }
