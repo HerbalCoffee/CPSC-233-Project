@@ -25,10 +25,10 @@ public class Map {
 			for ( int column = 0; column < mapLayout[0].length;column++) {
 					char character = line.charAt(column);
 					
-					if (character == 'C') {
+					/*if (character == 'C') {
 						exit.setX(column);
 						exit.setY(row);
-					}
+					}*/
 					
 					if (character != 'O') {
 						this.mapLayout[row][column] = character;

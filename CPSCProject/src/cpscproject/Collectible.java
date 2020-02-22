@@ -14,14 +14,14 @@ public class Collectible {
 	// A method that takes as input the players current position where they picked up an item and adds that item to their inventory and removes that item from the map
 	public void addWeapon(Map theMap, int row, int column) {
 		Inventory.add(Weapon);
-		theMap.replaceElement(row, column, ' ');
+		//theMap.replaceElement(row, column, ' ');
 		
 	}
 	
 	// A method that takes as input the players current position where they picked up an item and adds that item to their inventory and removes that item from the map
 	public void addPotion(Map theMap, int row, int column) {
 		Inventory.add(Potion);
-		theMap.replaceElement(row, column, ' ');
+		//theMap.replaceElement(row, column, ' ');
 	}
 	
 	// A method that returns the players current inventory as an arraylist.

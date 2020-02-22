@@ -23,28 +23,24 @@ public class TextApp {
         Map theMap = new Map("src/cpscproject/Map1.txt");
 
         //(Temporarily) create variables for player x and y location
-        int playerX = -1;
-        int playerY = -1;
+        Location playerLocation = new Location(-1,-1);
 
         //Randomly select a place for the player to spawn
         boolean spawned = false;
         while (!spawned) {
-            int spawnPointX = (int) (Math.random() * theMap.mapLayout[0].length);
-            int spawnPointY = (int) (Math.random() * theMap.mapLayout.length);
-            if (theMap.getElement(spawnPointY, spawnPointX) == ' ') {
+            Location aLocation = new Location((int) (Math.random() * theMap.mapLayout[0].length), (int) (Math.random() * theMap.mapLayout.length));
+            if (theMap.getElement(aLocation) == ' ') {
                 spawned = true;
-                playerX = spawnPointX;
-                playerY = spawnPointY;
+                playerLocation = new Location(aLocation);
             }
         }
-        theMap.setPlayer(playerY, playerX);
+        theMap.setPlayer(playerLocation);
         
         int numEnemies = 0;
         while(numEnemies < 3){
-            int x = (int)(Math.random()* theMap.mapLayout[0].length);
-            int y = (int)(Math.random()* theMap.mapLayout.length);
-            if(theMap.isValidMove(y, x)){
-                theMap.mapLayout[y][x] = 'E';
+            Location aLocation = new Location((int)(Math.random()* theMap.mapLayout[0].length), (int)(Math.random()* theMap.mapLayout.length));
+            if (theMap.getElement(aLocation) == ' ') {
+                theMap.setEnemy(aLocation);
                 numEnemies++;
             }
         }
@@ -53,8 +49,7 @@ public class TextApp {
         boolean run = true;
         Scanner control = new Scanner(System.in);
         String direction;
-        int oldPlayerX = -1;
-        int oldPlayerY = -1;
+        Location oldLocation = new Location(playerLocation);
         String special = "";
         int playerHealth = 20;
         int playerDamage = 5;
@@ -63,9 +58,9 @@ public class TextApp {
         do {
 
             // Set the player's location
-            theMap.setPlayer(playerY, playerX);
-            oldPlayerX = playerX;
-            oldPlayerY = playerY;
+            theMap.setPlayer(playerLocation);
+            oldLocation.setX(playerLocation.getX());
+            oldLocation.setY(playerLocation.getY());
 
             //Print the map
             for (int i = 0; i < theMap.mapLayout.length; i++) {
@@ -95,7 +90,7 @@ public class TextApp {
                     }
                 }
                 System.out.println("You killed the enemy!");
-                special = doSpecialActions(theMap, playerX, playerY, playerHealth, playerDamage);
+                special = doSpecialActions(theMap, playerLocation, playerHealth, playerDamage);
             } else {
                 //Change player location based on user input
                 System.out.println("Select a direction: w = up, a = left, s = down, d = right (q to quit)");
@@ -105,29 +100,29 @@ public class TextApp {
                         run = false;
                         break;
                     case "w":
-                        if (theMap.isValidMove(playerY - 1, playerX)) {
-                            playerY -= 1;
+                        if (theMap.isValidMove(new Location(playerLocation.getX(), playerLocation.getY() - 1))) {
+                            playerLocation.setY(playerLocation.getY() - 1);
                         } else {
                             System.out.println("Invalid Move!");
                         }
                         break;
                     case "a":
-                        if (theMap.isValidMove(playerY, playerX - 1)) {
-                            playerX -= 1;
+                        if (theMap.isValidMove(new Location(playerLocation.getX() - 1, playerLocation.getY()))) {
+                            playerLocation.setX(playerLocation.getX() - 1);
                         } else {
                             System.out.println("Invalid Move!");
                         }
                         break;
                     case "s":
-                        if (theMap.isValidMove(playerY + 1, playerX)) {
-                            playerY += 1;
+                        if (theMap.isValidMove(new Location(playerLocation.getX(), playerLocation.getY() + 1))) {
+                            playerLocation.setY(playerLocation.getY() + 1);
                         } else {
                             System.out.println("Invalid Move!");
                         }
                         break;
                     case "d":
-                        if (theMap.isValidMove(playerY, playerX + 1)) {
-                            playerX += 1;
+                        if (theMap.isValidMove(new Location(playerLocation.getX() + 1, playerLocation.getY()))) {
+                            playerLocation.setX(playerLocation.getX() + 1);
                         } else {
                             System.out.println("Invalid Move!");
                         }
@@ -136,20 +131,20 @@ public class TextApp {
                         System.out.println("Enter only a w, a, s, d, or q!");
                 }
 
-                special = doSpecialActions(theMap, playerX, playerY, playerHealth, playerDamage);
+                special = doSpecialActions(theMap, playerLocation, playerHealth, playerDamage);
 
                
             }
             
-             theMap.replaceElement(oldPlayerY, oldPlayerX, ' ');
+             theMap.replaceElement(oldLocation, ' ');
             
         } while (run);
         
         System.out.println("Thanks for playing!");
     }
 
-    public static String doSpecialActions(Map aMap, int xLoc, int yLoc, int playHealth, int playDamage) {
-        char currInLoc = aMap.getElement(yLoc, xLoc);
+    public static String doSpecialActions(Map aMap, Location aLoc, int playHealth, int playDamage) {
+        char currInLoc = aMap.getElement(aLoc);
         if (currInLoc == 'I') {
             playDamage += 2;
             return "You picked up an Iron Sword!";
