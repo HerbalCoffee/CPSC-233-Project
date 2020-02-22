@@ -67,11 +67,8 @@ public class Map {
 	}
 	
 	// Getter for the Exit Coordinates
-	public int getExitX() {
-		return this.exitX;
+	public Location getExitX() {
+		return this.exit;
 	}
 	
-	public int getExitY() {
-		return this.exitY;
-	}
 }
