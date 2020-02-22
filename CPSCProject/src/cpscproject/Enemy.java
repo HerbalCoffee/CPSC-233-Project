@@ -5,13 +5,18 @@ public class Enemy {
 	Location enemyLocation;
 	double health;
 	double damage;
-	double attackChance;
 	
 	public Enemy(Location enemyLocation, double health, double damage, double attackChance) {
 		this.enemyLocation = enemyLocation;
 		this.health = health;
 		this.damage = damage;
-		this.attackChance = attackChance;
 	}
 	
+	public double doesDamage() {
+		return damage;
+	}
+	
+	public void getDamaged(double damageInflicted) {
+		this.health = this.health - damageInflicted;
+	}
 }
