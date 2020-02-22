@@ -44,30 +44,35 @@ public class Map {
 	}
 	
 	// Method that returns the element present in the map, at the given location, as a char
-	public char getElement(int row, int column) {	
-		return mapLayout[row][column];
+	public char getElement(Location location) {	
+		return mapLayout[location.getY()][location.getX()];
 	}
 	
 	// Method that checks whether the inputed location is a Wall, and returns a boolean
-	public boolean isValidMove(int row, int column) {
+	public boolean isValidMove(Location location) {
 		
-		return this.mapLayout[row][column] != 'W';
+		return this.mapLayout[location.getY()][location.getX()] != 'W';
 	
 	}
 	
 	// Void Method that sets the location of the player
-	public void setPlayer(int row, int column) {
-		this.mapLayout[row][column] = 'X';
+	public void setPlayer(Location location) {
+		this.mapLayout[location.getY()][location.getX()] = 'X';
+	}
+	
+	// Void Method that sets the location of the enemy
+	public void setEnemy(Location location) {
+		this.mapLayout[location.getY()][location.getX()] = 'E';
 	}
 	
 	// Void Method that replaces a location in the map with an inputed character
-	public void replaceElement(int row, int column, char charToReplaceWith) {
-		this.mapLayout[row][column] = charToReplaceWith;
+	public void replaceElement(Location location, char charToReplaceWith) {
+		this.mapLayout[location.getY()][location.getX()] = charToReplaceWith;
 		
 	}
 	
 	// Getter for the Exit Coordinates
-	public Location getExitX() {
+	public Location getExit() {
 		return this.exit;
 	}
 	
