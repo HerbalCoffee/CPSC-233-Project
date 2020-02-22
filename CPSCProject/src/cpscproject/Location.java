@@ -19,6 +19,8 @@ public class Location {
         }
 	
 	
+	
+	
 	public int getX() {
 		return x;
 	}
