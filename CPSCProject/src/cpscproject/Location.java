@@ -18,6 +18,7 @@ public class Location {
             this.y = aLoc.getY();
         }
 	
+	
 	public int getX() {
 		return x;
 	}

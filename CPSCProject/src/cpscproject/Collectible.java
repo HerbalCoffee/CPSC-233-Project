@@ -12,16 +12,23 @@ public class Collectible {
 	private ArrayList<Character> Inventory = new ArrayList<Character>();
 	
 	// A method that takes as input the players current position where they picked up an item and adds that item to their inventory and removes that item from the map
-	public void addWeapon(Map theMap, int row, int column) {
+	public void addWeapon(Map theMap, Location weaponLocation) {
 		Inventory.add(Weapon);
+
 		//theMap.replaceElement(row, column, ' ');
+
+		
+
 		
 	}
 	
 	// A method that takes as input the players current position where they picked up an item and adds that item to their inventory and removes that item from the map
-	public void addPotion(Map theMap, int row, int column) {
+	public void addPotion(Map theMap, Location potionLocation) {
 		Inventory.add(Potion);
+
 		//theMap.replaceElement(row, column, ' ');
+
+		
 	}
 	
 	// A method that returns the players current inventory as an arraylist.
