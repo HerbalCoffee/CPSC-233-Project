@@ -36,7 +36,7 @@ public class TextApp {
             }
         }
 
-        thePlayer.setLocation(theMap, thePlayer.getLocation());
+        theMap.setPlayer(thePlayer.getLocation());
         
         //Randomly spawn three enemies on the screen
         int numEnemies = 0;
@@ -61,7 +61,7 @@ public class TextApp {
         do {
 
             // Set the player's location
-            thePlayer.setLocation(theMap, thePlayer.getLocation());
+        	theMap.setPlayer(thePlayer.getLocation());
 
             //Print the map
             for (int i = 0; i < theMap.mapLayout.length; i++) {
