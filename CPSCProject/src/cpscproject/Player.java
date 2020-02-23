@@ -12,109 +12,190 @@ import java.util.ArrayList;
  * @author klarshin
  */
 public class Player {
-    
+
     private Location playerLocation;
     private int playerHealth;
     private int playerDamage;
     private ArrayList<Collectible> inventory;
-    
-    public Player(Location aLocation){
+
+    /**
+     * Creates an instance of the Player class based on a given location
+     * 
+     * @param aLocation
+     */
+    public Player(Location aLocation) {
         this.playerLocation = new Location(aLocation);
         this.playerHealth = 50;
         this.playerDamage = 5;
+        this.inventory = new ArrayList<Collectible>();
     }
-    
-    public Location getLocation(){
+
+    /**
+     * Returns a copy of the location instance 
+     * 
+     * @return a copy of the Location object attributed to this player
+     */
+    public Location getLocation() {
         return new Location(this.playerLocation);
     }
-    
-	public void setLocation(Map theMap, Location location) {
-		theMap.mapLayout[location.getY()][location.getX()] = 'X';
-		this.playerLocation = location;
-	}
-    
-    public void moveUp(Map aMap){
-        if(aMap.isValidMove(new Location(playerLocation.getX(), playerLocation.getY() - 1))){
+
+    /**
+     * Sets the player's location in a given map instance
+     * 
+     * @param theMap A map instance
+     * @param location A location instance
+     */
+    public void setLocation(Map theMap, Location location) {
+        theMap.setPlayer(new Location(location));
+        this.playerLocation = location;
+    }
+
+    /**
+     * Sets the player's location one square up in a given map instance
+     * 
+     * @param aMap a map instance
+     */
+    public void moveUp(Map aMap) {
+        if (aMap.isValidMove(new Location(playerLocation.getX(), playerLocation.getY() - 1))) {
             playerLocation.setY(playerLocation.getY() - 1);
             aMap.replaceElement(new Location(playerLocation.getX(), playerLocation.getY() + 1), ' ');
         }
-        
+
     }
-    
-    public void moveLeft(Map aMap){
-        if(aMap.isValidMove(new Location(playerLocation.getX() - 1, playerLocation.getY()))){
+
+    /**
+     * Sets the player's location one square left in a given map instance
+     * 
+     * @param aMap a map instance
+     */
+    public void moveLeft(Map aMap) {
+        if (aMap.isValidMove(new Location(playerLocation.getX() - 1, playerLocation.getY()))) {
             playerLocation.setX(playerLocation.getX() - 1);
             aMap.replaceElement(new Location(playerLocation.getX() + 1, playerLocation.getY()), ' ');
         }
-        
+
     }
-    
-    public void moveDown(Map aMap){
-        if(aMap.isValidMove(new Location(playerLocation.getX(), playerLocation.getY() + 1))){
+
+    /**
+     * Sets the player's location one square down in a given map instance
+     * 
+     * @param aMap a map instance
+     */
+    public void moveDown(Map aMap) {
+        if (aMap.isValidMove(new Location(playerLocation.getX(), playerLocation.getY() + 1))) {
             playerLocation.setY(playerLocation.getY() + 1);
             aMap.replaceElement(new Location(playerLocation.getX(), playerLocation.getY() - 1), ' ');
         }
-        
+
     }
-    
-    public void moveRight(Map aMap){
-        if(aMap.isValidMove(new Location(playerLocation.getX() + 1, playerLocation.getY()))){
+
+    /**
+     * Sets the player's location one square right in a given map instance
+     * 
+     * @param aMap a map instance
+     */
+    public void moveRight(Map aMap) {
+        if (aMap.isValidMove(new Location(playerLocation.getX() + 1, playerLocation.getY()))) {
             playerLocation.setX(playerLocation.getX() + 1);
             aMap.replaceElement(new Location(playerLocation.getX() - 1, playerLocation.getY()), ' ');
         }
-        
+
     }
-    
-    public void addHealth(int healthToAdd){
-        
+
+    /**
+     * Adds a given amount to the player's health
+     * Ensures health does not exceed 100
+     *
+     * @param healthToAdd an integer representing the amount of health to give the player
+     */
+    public void addHealth(int healthToAdd) {
+
         int tempHealth = this.playerHealth + healthToAdd;
-        if(tempHealth > 100){
+        if (tempHealth > 100) {
             this.playerHealth = 100;
         } else {
             this.playerHealth = tempHealth;
         }
-        
+
     }
-    
-    public int getHealth(){
+
+    /**
+     * Returns the amount of health the player currently has
+     *
+     * @return an integer representing the player's current health level
+     */
+    public int getHealth() {
         return this.playerHealth;
     }
-    
-    public void attack(Enemy anEnemy){
+
+    /**
+     * Attacks a given enemy based on the amount of damage a player can inflict
+     * 
+     * @param anEnemy the enemy to attack
+     */
+    public void attack(Enemy anEnemy) {
         anEnemy.getDamaged(this.playerDamage);
     }
-    
-    public void getDamage(Enemy anEnemy){
+
+    /**
+     * 
+     * Inflicts damage to the player based on a given enemy
+     *
+     * @param anEnemy the enemy that attacks the player
+     */
+    public void getDamage(Enemy anEnemy) {
         this.playerHealth -= anEnemy.doesDamage();
     }
-    
-    public void increaseAttack(int attackToAdd){
+
+    /**
+     * Increases the amount of damage a player can inflict based on a given integer
+     *
+     * @param attackToAdd the amount of attack to add to the player
+     */
+    public void increaseAttack(int attackToAdd) {
         this.playerDamage += attackToAdd;
     }
-    
+
+    /**
+     * Adds a collectible object to the player's inventory
+     * 
+     * @param collectible the collectible object to be added
+     */
     public void addCollectible(Collectible collectible) {
-    	this.inventory.add(collectible);
+        this.inventory.add(collectible);
     }
-    
+
+    /**
+     * Removes the given collectible object from the player's inventory 
+     * 
+     * @param collectible the collectible object to remove
+     */
     public void removeCollectible(Collectible collectible) {
-    	this.inventory.remove(collectible);
+        this.inventory.remove(collectible);
     }
-    
+
+    /**
+     * Uses a health potion in the player's inventory, if one exists
+     *
+     */
     public void useHealthPotion() {
-		boolean healthPotionExists = false;
-    	if (!inventory.isEmpty()) {
-    		for(int index = 0;index < inventory.size();index++) {
-    			if (inventory.get(index).getType() == 'H') {
-    				healthPotionExists = true;
-    			}
-    		}
-		}
-    	if (healthPotionExists) {
-    		this.addHealth(10);
-    		System.out.println("Health Potion Used!");
- 
-    	}else {
-    		System.out.println("No Health Potion was Found in the Inventory!");
-    	}
+        boolean healthPotionExists = false;
+        Collectible potion = null;
+        if (!inventory.isEmpty()) {
+            for (int index = 0; index < inventory.size(); index++) {
+                if (inventory.get(index).getType() == 'H') {
+                    potion = this.inventory.get(index);
+                    healthPotionExists = true;
+                }
+            }
+        }
+        if (healthPotionExists) {
+            this.addHealth(10);
+            this.removeCollectible(potion);
+            System.out.println("Health Potion Used!");
+
+        } else {
+            System.out.println("No Health Potion was Found in the Inventory!");
+        }
     }
 }
