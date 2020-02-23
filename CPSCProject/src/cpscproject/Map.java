@@ -61,11 +61,6 @@ public class Map {
 		this.mapLayout[location.getY()][location.getX()] = 'X';
 	}
 	
-	// Void Method that sets the location of the enemy
-	public void setEnemy(Location location) {
-		this.mapLayout[location.getY()][location.getX()] = 'E';
-	}
-	
 	// Void Method that replaces a location in the map with an inputed character
 	public void replaceElement(Location location, char charToReplaceWith) {
 		this.mapLayout[location.getY()][location.getX()] = charToReplaceWith;

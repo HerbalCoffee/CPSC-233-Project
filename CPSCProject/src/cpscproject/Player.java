@@ -40,17 +40,6 @@ public class Player {
     }
 
     /**
-     * Sets the player's location in a given map instance
-     * 
-     * @param theMap A map instance
-     * @param location A location instance
-     */
-    public void setLocation(Map theMap, Location location) {
-        theMap.setPlayer(new Location(location));
-        this.playerLocation = location;
-    }
-
-    /**
      * Sets the player's location one square up in a given map instance
      * 
      * @param aMap a map instance
