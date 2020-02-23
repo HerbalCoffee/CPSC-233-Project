@@ -20,7 +20,7 @@ public class TextApp {
     public static void main(String[] args) throws FileNotFoundException {
 
         //Declare new map instance
-        Map theMap = new Map("src/cpscproject/Map1.txt");
+        Map theMap = new Map("D:\\Eclipse Workspace\\Our-Project-CPSC\\CPSCProject\\src\\cpscproject\\Map1.txt");
 
         //(Temporarily) create variables for player x and y location
         
@@ -36,13 +36,14 @@ public class TextApp {
                 thePlayer = new Player(new Location(aLocation));
             }
         }
-        theMap.setPlayer(thePlayer.getLocation());
+        
+        thePlayer.setLocation(theMap, thePlayer.getLocation());
         
         int numEnemies = 0;
         while(numEnemies < 3){
             Location aLocation = new Location((int)(Math.random()* theMap.mapLayout[0].length), (int)(Math.random()* theMap.mapLayout.length));
             if (theMap.getElement(aLocation) == ' ') {
-                Enemy theEnemy = new Enemy(new Location(aLocation), (int)(Math.random() * 10), (int)(Math.random() * 3));
+                Enemy theEnemy = new Enemy(new Location(aLocation), (int)(Math.random() * 20), (int)(Math.random() * 10));
                 theMap.addEnemy(theEnemy);
                 numEnemies++;
             }
@@ -53,12 +54,13 @@ public class TextApp {
         Scanner control = new Scanner(System.in);
         String direction;
         String special = "";
+        boolean deathNotification = false;
         
         
         do {
 
             // Set the player's location
-            theMap.setPlayer(thePlayer.getLocation());
+            thePlayer.setLocation(theMap, thePlayer.getLocation());
 
             //Print the map
             for (int i = 0; i < theMap.mapLayout.length; i++) {
@@ -68,7 +70,13 @@ public class TextApp {
             System.out.println(special);
 
             if (special.contains("exit")) {
-                run = false;
+                if (theMap.enemyList.isEmpty()) {
+                	run = false;
+                }else {
+                	thePlayer.moveDown(theMap);
+                	theMap.replaceElement(new Location(thePlayer.getLocation().getX(), thePlayer.getLocation().getY() - 1), 'C');
+                	special = "";
+                }
             } else if(special.contains("enemy")){
                 Enemy anEnemy = null;
                 for(Enemy e : theMap.enemyList){
@@ -76,8 +84,8 @@ public class TextApp {
                         anEnemy = e;
                     }
                 }
-                while(anEnemy.health > 0){
-                    System.out.println("Enemy Health: " + anEnemy.health);
+                while(anEnemy.getHealth() > 0 && thePlayer.getHealth() >= 0){
+                    System.out.println("Enemy Health: " + anEnemy.getHealth());
                     System.out.println("Press A to attack!");
                     direction = control.next();
                     if(direction.equalsIgnoreCase("a")){
@@ -85,17 +93,27 @@ public class TextApp {
                         System.out.println("The enemy attacked!");
                         thePlayer.getDamage(anEnemy);
                         System.out.println("Player Health: " + thePlayer.getHealth());
-                        if(thePlayer.getHealth() <= 0){
-                            anEnemy.health = 0;
-                            run = false;
-                        }
+
+                    }else {
+                    	System.out.println("Invalid Move! The enemy attacked when you were waiting!");
+                    	thePlayer.getDamage(anEnemy);
+                    	System.out.println("Player Health: " + thePlayer.getHealth());
+                    }
+                    
+                    if(thePlayer.getHealth() <= 0){
+                        anEnemy.getDamaged(anEnemy.getHealth());
+                        run = false;
+                        deathNotification = true;
                     }
                 }
-                System.out.println("You killed the enemy!");
-                special = doSpecialActions(theMap, thePlayer);
+                if(anEnemy.getHealth() <= 0 && thePlayer.getHealth() > 0) {
+                    System.out.println("You killed the enemy!");
+                    theMap.removeEnemy(anEnemy);
+                    special = doSpecialActions(theMap, thePlayer);	
+                }
             } else {
                 //Change player location based on user input
-                System.out.println("Select a direction: w = up, a = left, s = down, d = right (q to quit)");
+                System.out.println("Select as direction: w = up, a = left, s = down, d = right (q to quit), h = health potion");
                 direction = control.next();
                 switch (direction) {
                     case "q":
@@ -113,8 +131,11 @@ public class TextApp {
                     case "d":
                         thePlayer.moveRight(theMap);
                         break;
+                   // case "h":
+                    	//thePlayer.useHealthPotion();
+                    	//break;
                     default:
-                        System.out.println("Enter only a w, a, s, d, or q!");
+                        System.out.println("Enter only a w, a, s, d, h or q!");
                 }
 
                 special = doSpecialActions(theMap, thePlayer);
@@ -125,25 +146,34 @@ public class TextApp {
             
             
         } while (run);
-        
-        System.out.println("Thanks for playing!");
+        if(deathNotification) {
+        	System.out.println("You died! Thanks for Playing!");
+        }else {
+            System.out.println("Thanks for playing!");
+        }
     }
 
-    public static String doSpecialActions(Map aMap, Player aPlayer) {
-        char currInLoc = aMap.getElement(aPlayer.getLocation());
+    public static String doSpecialActions(Map theMap, Player aPlayer) {
+        char currInLoc = theMap.getElement(aPlayer.getLocation());
         if (currInLoc == 'I') {
             aPlayer.increaseAttack(2);
             return "You picked up an Iron Sword!";
         }
         if (currInLoc == 'H') {
-            aPlayer.addHealth(5);
+            //Collectible HealthPotion = new Collectible("Health Potion",'H');
+        	//aPlayer.addCollectible(HealthPotion);
+        	aPlayer.addHealth(5);
             return "You picked up a health potion!";
         }
         if (currInLoc == 'E') {
             return "You encountered an enemy!";
         }
         if (currInLoc == 'C') {
-            return "You reached the exit";
+            if (theMap.enemyList.isEmpty()) {
+            	return "You reached the exit";
+            }else {
+            	return "You cannot use the exit! Not all enemies have been defeated!";
+            }
         }
         return "";
     }

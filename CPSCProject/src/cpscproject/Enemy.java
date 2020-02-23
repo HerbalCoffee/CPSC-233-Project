@@ -4,9 +4,9 @@ package cpscproject;
 public class Enemy {
 
 	//Instance variables for enemy location, health and damage
-	Location enemyLocation;
-	double health;
-	double damage;
+	private Location enemyLocation;
+	private double health;
+	private double damage;
 	
 	//Constructor that defines all neccassry enemy instance variables 
 	public Enemy(Location enemyLocation, double health, double damage) {

@@ -5,6 +5,8 @@
  */
 package cpscproject;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author klarshin
@@ -14,18 +16,22 @@ public class Player {
     private Location playerLocation;
     private int playerHealth;
     private int playerDamage;
-    private Collectible inventory;
+    private ArrayList<Collectible> inventory;
     
     public Player(Location aLocation){
         this.playerLocation = new Location(aLocation);
         this.playerHealth = 50;
         this.playerDamage = 5;
-        this.inventory = new Collectible();
     }
     
     public Location getLocation(){
         return new Location(this.playerLocation);
     }
+    
+	public void setLocation(Map theMap, Location location) {
+		theMap.mapLayout[location.getY()][location.getX()] = 'X';
+		this.playerLocation = location;
+	}
     
     public void moveUp(Map aMap){
         if(aMap.isValidMove(new Location(playerLocation.getX(), playerLocation.getY() - 1))){
@@ -86,4 +92,29 @@ public class Player {
         this.playerDamage += attackToAdd;
     }
     
+    public void addCollectible(Collectible collectible) {
+    	this.inventory.add(collectible);
+    }
+    
+    public void removeCollectible(Collectible collectible) {
+    	this.inventory.remove(collectible);
+    }
+    
+    public void useHealthPotion() {
+		boolean healthPotionExists = false;
+    	if (!inventory.isEmpty()) {
+    		for(int index = 0;index < inventory.size();index++) {
+    			if (inventory.get(index).getType() == 'H') {
+    				healthPotionExists = true;
+    			}
+    		}
+		}
+    	if (healthPotionExists) {
+    		this.addHealth(10);
+    		System.out.println("Health Potion Used!");
+ 
+    	}else {
+    		System.out.println("No Health Potion was Found in the Inventory!");
+    	}
+    }
 }
