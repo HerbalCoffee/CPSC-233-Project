@@ -7,6 +7,11 @@ import java.util.ArrayList;
 
 
 // Creates Map Class 
+
+/**
+ *
+ * 
+ */
 public class Map {
 
 	// Instantiates a 2D array of characters
@@ -15,8 +20,14 @@ public class Map {
 	ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
 	
 	
-	// Constructor Method that uses the Scanner class to add individual characters from a text file and adds
-	// them to the mapLayout instance variable.
+
+    /**
+     * Constructor Method that uses the Scanner class to add individual characters from a text file and adds
+     * them to the mapLayout instance variable.
+     *
+     * @param filePath the path to a text file containing a a rectangular map
+     * @throws FileNotFoundException
+     */
 	public Map(String filePath) throws FileNotFoundException {
 		
 		Scanner map = new Scanner(new FileReader(filePath));
@@ -44,41 +55,85 @@ public class Map {
 		
 	}
 	
-	// Method that returns the element present in the map, at the given location, as a char
+
+    /**
+     * Method that returns the element present in the map, at the given location, as a char
+     * 
+     * @param location the location where the character is
+     * @return the character that is contained within the given location
+     */
 	public char getElement(Location location) {	
 		return mapLayout[location.getY()][location.getX()];
 	}
 	
-	// Method that checks whether the inputed location is a Wall, and returns a boolean
+	// 
+
+    /**
+     * Method that checks whether the inputed location is a Wall, and returns a boolean
+     * 
+     * @param location a Location object indicating the location to check
+     * @return a boolean indicating whether the indicated location is a valid move
+     */
 	public boolean isValidMove(Location location) {
 		
 		return this.mapLayout[location.getY()][location.getX()] != 'W';
 	
 	}
 	
-	// Void Method that sets the location of the player
+	// 
+
+    /**
+     * Void Method that sets the location of the player
+     * 
+     * @param location the location to set the character representation of the player
+     */
 	public void setPlayer(Location location) {
 		this.mapLayout[location.getY()][location.getX()] = 'X';
 	}
 	
-	// Void Method that replaces a location in the map with an inputed character
+	// 
+
+    /**
+     * Void Method that replaces a location in the map with a given character
+     *
+     * @param location the location in which the character representation must be replaced
+     * @param charToReplaceWith the character to replace within the map at the given location
+     */
 	public void replaceElement(Location location, char charToReplaceWith) {
 		this.mapLayout[location.getY()][location.getX()] = charToReplaceWith;
 		
 	}
 	
-	// Getter for the Exit Coordinates
+	// 
+
+    /**
+     * Getter for the Exit Coordinates
+     *
+     * @return a Location object representing the location of the exit
+     */
 	public Location getExit() {
 		return this.exit;
 	}
 	
-	// Method that adds an enemy to the list, as well as adds enemy location on the character map
+	// 
+
+    /**
+     * Method that adds an enemy to the list, as well as adds enemy location on the character map
+     *
+     * @param newEnemy the enemy to add to the map, and the enemyList
+     */
 	public void addEnemy(Enemy newEnemy) {
 		enemyList.add(newEnemy);
 		this.mapLayout[newEnemy.getLocation().getY()][newEnemy.getLocation().getX()] = 'E';
 	}
 	
-	// Method that removes an enemy to the list, as well as adds enemy location on the character map
+	//
+
+    /**
+     * Method that removes an enemy from the list, as well as removes the enemy's location from the character map
+     * 
+     * @param newEnemy the enemy to be removed from the map and enemyList
+     */
 	public void removeEnemy(Enemy newEnemy) {
 		enemyList.remove(newEnemy);
 		this.mapLayout[newEnemy.getLocation().getY()][newEnemy.getLocation().getX()] = ' ';
