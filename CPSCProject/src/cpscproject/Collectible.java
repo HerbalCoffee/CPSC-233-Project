@@ -1,20 +1,17 @@
 package cpscproject;
-import java.util.ArrayList;
 
-
+//Collectible Class that is used to store collectible data
 public class Collectible {
 
-	//	Collectibles at the moment are either Iron Swords or Potions 
-	private String name;
+	//	Collectible at the moment are either Iron Swords or Potions 
 	private char type;
-	
-	//	Stores the players collection of inventory
-	
-	public Collectible(String name, char type) {
-		this.name = name;
+
+	//Constructor that Takes a type of Collectible
+	public Collectible(char type) {
 		this.type = type;
 	}
 	
+	//Getter for Type
 	public char getType() {
 		return this.type;
 	}
