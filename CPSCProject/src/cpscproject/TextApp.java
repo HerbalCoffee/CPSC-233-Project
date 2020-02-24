@@ -6,6 +6,7 @@
 package cpscproject;
 
 import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.Scanner;
 
 /**
@@ -18,9 +19,9 @@ public class TextApp {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException {
-
+         
         //Declare new map instance
-        Map theMap = new Map("src/cpscproject/Map1.txt");
+        Map theMap = new Map(TextApp.class.getResource("Map1.txt").getPath());
 
         //(Temporarily) create variables for player x and y location
         Player thePlayer = null;
@@ -119,7 +120,7 @@ public class TextApp {
                 }
             } else {
                 //Change player location based on user input
-                System.out.println("Select as direction: w = up, a = left, s = down, d = right, h = health potion");
+                System.out.println("Select as direction: w = up, a = left, s = down, d = right, h = health potion (q to quit)");
                 direction = control.next();
                 switch (direction) {
                     case "q":
