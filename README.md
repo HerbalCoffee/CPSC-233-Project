@@ -1,14 +1,16 @@
-# CPSC 233 Project
-#### By **Michael Potemkin, Jeremy Kimotho, Kirill Larshin, Martin Wong**
+# CPSC Project (Name in Progress)
+#### By **Michael Potemkin, Kirill Larshin, Jeremy Kimotho, Martin Wong**
 #### 20-Feb-2020
 ## Description
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi porta dolor vitae magna tristique, ut lobortis ipsum volutpat. Etiam vulputate posuere ex id efficitur. Pellentesque tempus diam at ante rutrum euismod. Maecenas pellentesque sagittis tincidunt. Nullam sodales neque mi, nec efficitur purus aliquam sit amet. Integer sit amet erat massa. Fusce ac gravida augue, eu pellentesque ex.
+A rogue-like adventure game. The player is able to explore randomly generated maps, collect items and fight enemies in order to battle a final boss.
 ## Setup/Installation Requirements
 * Java 8 or later
-## Known Bugs
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi porta dolor vitae magna tristique, ut lobortis ipsum volutpat. Etiam vulputate posuere ex id efficitur. Pellentesque tempus diam at ante rutrum euismod. Maecenas pellentesque sagittis tincidunt. Nullam sodales neque mi, nec efficitur purus aliquam sit amet. Integer sit amet erat massa. Fusce ac gravida augue, eu pellentesque ex.
-## Technologies Used
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi porta dolor vitae magna tristique, ut lobortis ipsum volutpat. Etiam vulputate posuere ex id efficitur. Pellentesque tempus diam at ante rutrum euismod. Maecenas pellentesque sagittis tincidunt. Nullam sodales neque mi, nec efficitur purus aliquam sit amet. Integer sit amet erat massa. Fusce ac gravida augue, eu pellentesque ex.
+## How to run (Text-Based)
+1. Ensure that a Java JVM is installed on your machine (run Java -version from the terminal)
+2. Download/Clone this repository
+3. Open the terminal and navigate to the downloaded directory
+4. Run java -jar TextBased.jar while in the directory via the terminal
+5. Enjoy!
 
 MIT License
 
