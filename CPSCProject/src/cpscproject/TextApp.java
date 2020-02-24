@@ -6,7 +6,6 @@
 package cpscproject;
 
 import java.io.FileNotFoundException;
-import java.net.URL;
 import java.util.Scanner;
 
 /**
@@ -44,7 +43,7 @@ public class TextApp {
         while (numEnemies < 3) {
             Location aLocation = new Location((int) (Math.random() * theMap.mapLayout[0].length), (int) (Math.random() * theMap.mapLayout.length));
             if (theMap.getElement(aLocation) == ' ') {
-                Enemy theEnemy = new Enemy(new Location(aLocation), (int) (Math.random() * 20), (int) (Math.random() * 10));
+                Enemy theEnemy = new Enemy(new Location(aLocation), (int) (Math.random() * 20) + 1, (int) (Math.random() * 10));
                 //Add each enemy into the map
                 theMap.addEnemy(theEnemy);
                 numEnemies++;
@@ -92,6 +91,7 @@ public class TextApp {
                 }
                 //Start of enemy battle
                 while (anEnemy.getHealth() > 0 && thePlayer.getHealth() >= 0) {
+                    System.out.println("Player Health: " + thePlayer.getHealth());
                     System.out.println("Enemy Health: " + anEnemy.getHealth());
                     System.out.println("Press A to attack!");
                     direction = control.next();
@@ -99,12 +99,10 @@ public class TextApp {
                         thePlayer.attack(anEnemy);
                         System.out.println("The enemy attacked!");
                         thePlayer.getDamage(anEnemy);
-                        System.out.println("Player Health: " + thePlayer.getHealth());
 
                     } else {
                         System.out.println("Invalid Move! The enemy attacked when you were waiting!");
                         thePlayer.getDamage(anEnemy);
-                        System.out.println("Player Health: " + thePlayer.getHealth());
                     }
 
                     if (thePlayer.getHealth() <= 0) {
@@ -115,6 +113,7 @@ public class TextApp {
                 }
                 if (anEnemy.getHealth() <= 0 && thePlayer.getHealth() > 0) {
                     System.out.println("You killed the enemy!");
+                    System.out.println("Player Health: " + thePlayer.getHealth());
                     theMap.removeEnemy(anEnemy);
                     special = doSpecialActions(theMap, thePlayer);
                 }

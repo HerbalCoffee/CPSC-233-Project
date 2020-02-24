@@ -48,6 +48,8 @@ public class Player {
         if (aMap.isValidMove(new Location(playerLocation.getX(), playerLocation.getY() - 1))) {
             playerLocation.setY(playerLocation.getY() - 1);
             aMap.replaceElement(new Location(playerLocation.getX(), playerLocation.getY() + 1), ' ');
+        }else {
+            System.out.println("Invalid Move!");
         }
 
     }
@@ -61,6 +63,8 @@ public class Player {
         if (aMap.isValidMove(new Location(playerLocation.getX() - 1, playerLocation.getY()))) {
             playerLocation.setX(playerLocation.getX() - 1);
             aMap.replaceElement(new Location(playerLocation.getX() + 1, playerLocation.getY()), ' ');
+        }else {
+            System.out.println("Invalid Move!");
         }
 
     }
@@ -74,6 +78,8 @@ public class Player {
         if (aMap.isValidMove(new Location(playerLocation.getX(), playerLocation.getY() + 1))) {
             playerLocation.setY(playerLocation.getY() + 1);
             aMap.replaceElement(new Location(playerLocation.getX(), playerLocation.getY() - 1), ' ');
+        }else {
+            System.out.println("Invalid Move!");
         }
 
     }
@@ -87,6 +93,8 @@ public class Player {
         if (aMap.isValidMove(new Location(playerLocation.getX() + 1, playerLocation.getY()))) {
             playerLocation.setX(playerLocation.getX() + 1);
             aMap.replaceElement(new Location(playerLocation.getX() - 1, playerLocation.getY()), ' ');
+        } else {
+            System.out.println("Invalid Move!");
         }
 
     }
@@ -182,6 +190,7 @@ public class Player {
             this.addHealth(10);
             this.removeCollectible(potion);
             System.out.println("Health Potion Used!");
+            System.out.println("Player Health: " + this.getHealth());
 
         } else {
             System.out.println("No Health Potion was Found in the Inventory!");
