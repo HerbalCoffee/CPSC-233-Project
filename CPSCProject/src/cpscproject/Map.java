@@ -15,9 +15,9 @@ import java.util.ArrayList;
 public class Map {
 
 	// Instantiates a 2D array of characters
-	char[][] mapLayout = new char[10][15];
+	public char[][] mapLayout = new char[10][15];
 	private Location exit = null;
-	ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
+	public ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
 	
 	
 
