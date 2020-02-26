@@ -16,8 +16,8 @@ public class Collectible {
      *
      * @param type a character representing the type of the collectible
      */
-	public Collectible(char type) {
-		this.type = type;
+	public Collectible(Location aLoc, char c) {
+		super();
 	}
 	
 
