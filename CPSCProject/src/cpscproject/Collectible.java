@@ -1,33 +1,25 @@
 package cpscproject;
 
-//Collectible Class that is used to store collectible data
+//Collectible class that is used to store collectible data
 
 /**
  *
  * 
  */
-public class Collectible {
+public class Collectible extends Entity {
 
-	//Collectible at the moment are either Iron Swords or Potions 
-	private char type;
+    private String displayName;
 
-    /**
-     * Constructor that takes a type of Collectible
-     *
-     * @param type a character representing the type of the collectible
-     */
-	public Collectible(Location aLoc, char c) {
-		super();
-	}
-	
+    public Collectible(Location aLoc, char c, String displayName) {
+        super(aLoc, c);
+        this.displayName = displayName;
+    }
 
-    /**
-     * Getter for Type
-     *
-     * @return a character representing the type of the collectible
-     */
-	public char getType() {
-		return this.type;
-	}
+    public String getDisplayName() {
+        return this.displayName;
+    }
 
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
 }
