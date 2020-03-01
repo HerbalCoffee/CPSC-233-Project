@@ -29,13 +29,13 @@ public class MovableEntity extends Entity {
         double damageDealt
         switch (damageType) {
             case "melee" :
-                damageDealt = this.baseDamage * (this.strength/2);
+                damageDealt = this.baseDamage + (this.baseDamage * (this.strength/2));
                 break;
             case "ranged" :
-                damageDealt = this.baseDamage * (this.dexterity/2);
+                damageDealt = this.baseDamage + (this.baseDamage * (this.dexterity/2));
                 break;
             case "magic":
-                damageDealt = this.baseDamage * (this.intelligence/2);
+                damageDealt = this.baseDamage + (this.baseDamage * (this.intelligence/2));
                 break:
             default:
                 damageDealt = this.baseDamage;
