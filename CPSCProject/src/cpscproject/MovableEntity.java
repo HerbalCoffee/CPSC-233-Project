@@ -21,6 +21,8 @@ public class MovableEntity extends Entity {
     }
     
     
+    //COMBAT DAMAGE METHODS
+    
     /**
     * Calculates damage for a certain attack type based on appropriate stat
     * Currently adds .5 to the multiplier per level of stat
@@ -42,6 +44,17 @@ public class MovableEntity extends Entity {
                 break;
         }
         return damageDealt;
+    }
+    
+    /*
+    * Calculates damage taken and applies damage taken to health
+    * Reduces damage by subtracting (damage * 0.(endurance)) from the damage taken
+    *
+    */
+    public void takeDamage(double damage) {
+        double damageTaken = damage;
+        damageTaken = damage - (damage * (0.1 * this.endurance));
+        this.health -= damageTaken;
     }
     
     
