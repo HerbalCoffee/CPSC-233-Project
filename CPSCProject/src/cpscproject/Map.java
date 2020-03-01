@@ -15,8 +15,8 @@ import java.util.ArrayList;
 public class Map {
 
 	// Instantiates a 2D array of characters
-	public char[][] mapLayout = new char[10][15];
-	private Location exit = null;
+	public Entity[][] mapLayout = new Entity[10][15];
+	private Exit exit = null;
 	public ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
 	
 	
@@ -39,13 +39,10 @@ public class Map {
 					char character = line.charAt(column);
 					
 					if (character == 'C') {
-                                            exit = new Location(column, row);
-					}
-					
-					if (character != 'O') {
-						this.mapLayout[row][column] = character;
-					} else {
-						this.mapLayout[row][column] = ' ';
+						exit = new Exit(column, row);
+						this.mapLayout[row][column] = new Exit(new Location(column, row));
+					}else if (character == 'W') {
+						this.mapLayout[row][column] = new Wall(new Location(column, row));
 					}
 			}
 		}		
@@ -62,9 +59,7 @@ public class Map {
      * @param location the location where the character is
      * @return the character that is contained within the given location
      */
-	public char getElement(Location location) {	
-		return mapLayout[location.getY()][location.getX()];
-	}
+	public Entity getElement(Location location) {return mapLayout[location.getY()][location.getX()];}
 	
 	// 
 
@@ -75,23 +70,13 @@ public class Map {
      * @return a boolean indicating whether the indicated location is a valid move
      */
 	public boolean isValidMove(Location location) {
-		
-		return this.mapLayout[location.getY()][location.getX()] != 'W';
-	
-	}
-	
-	// 
 
-    /**
-     * Void Method that sets the location of the player
-     * 
-     * @param location the location to set the character representation of the player
-     */
-	public void setPlayer(Location location) {
-		this.mapLayout[location.getY()][location.getX()] = 'X';
-	}
+		if (this.mapLayout[location.getY()][location.getX()] instanceof Wall){
+			return true;
+		}else{return false;}
+
 	
-	// 
+	}
 
     /**
      * Void Method that replaces a location in the map with a given character
@@ -99,10 +84,7 @@ public class Map {
      * @param location the location in which the character representation must be replaced
      * @param charToReplaceWith the character to replace within the map at the given location
      */
-	public void replaceElement(Location location, char charToReplaceWith) {
-		this.mapLayout[location.getY()][location.getX()] = charToReplaceWith;
-		
-	}
+	public void replaceElement(Location location, Entity theEntity) {this.mapLayout[location.getY()][location.getX()] = theEntity;}
 	
 	// 
 
@@ -111,9 +93,7 @@ public class Map {
      *
      * @return a Location object representing the location of the exit
      */
-	public Location getExit() {
-		return this.exit;
-	}
+	public Entity getExit() {return this.exit;}
 	
 	// 
 
@@ -122,10 +102,7 @@ public class Map {
      *
      * @param newEnemy the enemy to add to the map, and the enemyList
      */
-	public void addEnemy(Enemy newEnemy) {
-		enemyList.add(newEnemy);
-		this.mapLayout[newEnemy.getLocation().getY()][newEnemy.getLocation().getX()] = 'E';
-	}
+	public void addEnemy(Enemy newEnemy) {enemyList.add(newEnemy);}
 	
 	//
 
@@ -134,9 +111,16 @@ public class Map {
      * 
      * @param newEnemy the enemy to be removed from the map and enemyList
      */
-	public void removeEnemy(Enemy newEnemy) {
-		enemyList.remove(newEnemy);
-		this.mapLayout[newEnemy.getLocation().getY()][newEnemy.getLocation().getX()] = ' ';
+	public void removeEnemy(Enemy newEnemy) {enemyList.remove(newEnemy);}
+
+	public void printMap(){
+
+		for( int row = 0; row < mapLayout.length;row++) {
+			for ( int column = 0; column < mapLayout[0].length;column++) {
+				System.out.print(this.mapLayout[row][column].getChar());
+			}
+			System.out.println();
+		}
 	}
 	
 }

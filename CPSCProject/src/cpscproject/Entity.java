@@ -2,29 +2,28 @@ package cpscproject;
 
 public class Entity {
 	
-	private Location entityLoc;
+	private Location entityLocation;
 	private char entityAsChar;
 	
 	public Entity(Location aLoc, char c) {
-		this.entityLoc = new Location(aLoc);
+		this.entityLocation = new Location(aLoc);
 		this.entityAsChar = c;
 	}
 	
 	public void setLocation(Location aLoc) {
-		this.entityLoc = new Location(aLoc);
+		this.entityLocation = new Location(aLoc);
 	}
 	
-	public Location getLocation() {
-		return new Location(this.entityLoc);
+	public Location getLocation() { return new Location(this.entityLocation);
 		
 	}
 	
 	public void setX(int x) {
-		this.entityLoc.setX(x);
+		this.entityLocation.setX(x);
 	}
 	
 	public void setY(int y) {
-		this.entityLoc.setY(y);
+		this.entityLocation.setY(y);
 	}
 	
 	public char getChar() {
