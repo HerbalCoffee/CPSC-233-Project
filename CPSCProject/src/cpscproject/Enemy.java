@@ -7,9 +7,6 @@ package cpscproject;
  * 
  */
 public class Enemy extends MovableEntity {
-
-
-
     /**
      * Constructor that defines all necessary enemy instance variables
      *
@@ -17,14 +14,7 @@ public class Enemy extends MovableEntity {
      * @param health the amount of health the enemy has
      * @param damage the amount of damage an enemy can inflict
      */
-	public Enemy(double Health, double Damage, Location enemyLocation) {
-		super(Health,Damage,enemyLocation,'E');
+	public Enemy(double health, double baseDamage, Location enemyLocation) {
+		super(health, baseDamage, 0, 0, 0, 0, enemyLocation, 'E');
 	}
-
-
-	
-	
-
-
-        
 }
