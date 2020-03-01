@@ -21,7 +21,7 @@ public class Player extends MovableEntity {
      * @param anEnemy the enemy to attack
      */
     public void attack(Enemy anEnemy) {
-        anEnemy.setHealth(anEnemy.getHealth() - this.getDamage(""));
+        anEnemy.takeDamage(this.getDamage(""));
     }
 
 
