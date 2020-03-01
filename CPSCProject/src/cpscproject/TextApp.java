@@ -29,22 +29,23 @@ public class TextApp {
         boolean spawned = false;
         while (!spawned) {
             Location aLocation = new Location((int) (Math.random() * theMap.mapLayout[0].length), (int) (Math.random() * theMap.mapLayout.length));
-            if (theMap.getElement(aLocation) == ' ') {
+            if (theMap.getElement(aLocation) instanceof Space) {
                 spawned = true;
                 //Create a new player instance in the spawned location
-                thePlayer = new Player(new Location(aLocation));
+                thePlayer = new Player(50, 10, new Location(aLocation));
             }
         }
 
-        theMap.setPlayer(thePlayer.getLocation());
+        theMap.mapLayout[thePlayer.getLocation().getY()][thePlayer.getLocation().getX()] = thePlayer;
         
         //Randomly spawn three enemies on the screen
         int numEnemies = 0;
         while (numEnemies < 3) {
             Location aLocation = new Location((int) (Math.random() * theMap.mapLayout[0].length), (int) (Math.random() * theMap.mapLayout.length));
-            if (theMap.getElement(aLocation) == ' ') {
-                Enemy theEnemy = new Enemy(new Location(aLocation), (int) (Math.random() * 20) + 1, (int) (Math.random() * 10));
+            if (theMap.getElement(aLocation) instanceof Space) {
+                Enemy theEnemy = new Enemy( (int) (Math.random() * 20) + 1, (int) (Math.random() * 10), new Location(aLocation));
                 //Add each enemy into the map
+                theMap.mapLayout[theEnemy.getLocation().getY()][theEnemy.getLocation().getX()] = theEnemy;
                 theMap.addEnemy(theEnemy);
                 numEnemies++;
             }
@@ -61,12 +62,14 @@ public class TextApp {
         do {
 
             // Set the player's location
-        	theMap.setPlayer(thePlayer.getLocation());
+            theMap.mapLayout[thePlayer.getLocation().getY()][thePlayer.getLocation().getX()] = thePlayer;
 
             //Print the map
-            for (int i = 0; i < theMap.mapLayout.length; i++) {
+            /*for (int i = 0; i < theMap.mapLayout.length; i++) {
                 System.out.println(theMap.mapLayout[i]);
-            }
+            }*/
+            
+            theMap.printMap();
 
             System.out.println(special);
             
@@ -77,7 +80,7 @@ public class TextApp {
                 } else {
                     //Otherwise the player will move to the previous position
                     thePlayer.moveDown(theMap);
-                    theMap.replaceElement(new Location(thePlayer.getLocation().getX(), thePlayer.getLocation().getY() - 1), 'C');
+                    theMap.replaceElement(new Location(thePlayer.getLocation().getX(), thePlayer.getLocation().getY() - 1), new Exit(new Location(thePlayer.getLocation().getX(), thePlayer.getLocation().getY() - 1)));
                     special = "";
                 }
             } else if (special.contains("enemy")) {
@@ -98,15 +101,15 @@ public class TextApp {
                     if (direction.equalsIgnoreCase("a")) {
                         thePlayer.attack(anEnemy);
                         System.out.println("The enemy attacked!");
-                        thePlayer.getDamage(anEnemy);
+                        thePlayer.takeDamage(anEnemy.getDamage(direction));
 
                     } else {
                         System.out.println("Invalid Move! The enemy attacked when you were waiting!");
-                        thePlayer.getDamage(anEnemy);
+                        thePlayer.takeDamage(anEnemy.getDamage(direction));
                     }
 
                     if (thePlayer.getHealth() <= 0) {
-                        anEnemy.getDamaged(anEnemy.getHealth());
+                        anEnemy.setHealth(0);
                         run = false;
                         deathNotification = true;
                     }
@@ -167,14 +170,14 @@ public class TextApp {
     */
 
     public static String doSpecialActions(Map theMap, Player aPlayer) {
-        char currInLoc = theMap.getElement(aPlayer.getLocation());
+        char currInLoc = theMap.getElement(aPlayer.getLocation()).getChar();
         if (currInLoc == 'I') {
-            aPlayer.increaseAttack(2);
+            //aPlayer.increaseAttack(2);
             return "You picked up an Iron Sword!";
         }
         if (currInLoc == 'H') {
-            Collectible HealthPotion = new Collectible('H');
-            aPlayer.addCollectible(HealthPotion);
+            //Collectible HealthPotion = new Collectible('H');
+            //aPlayer.addCollectible(HealthPotion);
             return "You picked up a health potion!";
         }
         if (currInLoc == 'E') {

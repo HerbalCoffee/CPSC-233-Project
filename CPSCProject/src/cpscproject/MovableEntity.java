@@ -28,7 +28,7 @@ public class MovableEntity extends Entity {
     * Currently adds .5 to the multiplier per level of stat
     */
     public double getDamage(String damageType) {
-        double damageDealt
+        double damageDealt;
         switch (damageType) {
             case "melee" :
                 damageDealt = this.baseDamage + (this.baseDamage * (this.strength/2));
@@ -38,10 +38,9 @@ public class MovableEntity extends Entity {
                 break;
             case "magic":
                 damageDealt = this.baseDamage + (this.baseDamage * (this.intelligence/2));
-                break:
+                break;
             default:
                 damageDealt = this.baseDamage;
-                break;
         }
         return damageDealt;
     }
@@ -63,19 +62,19 @@ public class MovableEntity extends Entity {
     public void setBaseDamage(double newDamage) { this.baseDamage = newDamage; }
 
     public double getHealth() { return this.health; }
-    public void setHealth(double new) { this.health = new; }
+    public void setHealth(double health) { this.health = health; }
     
     public int getEndurance() { return this.endurance; }
-    public int setEndurance(int new) { this.endurance = new; }
+    public void setEndurance(int endurance) { this.endurance = endurance; }
     
     public int getStrength() { return this.strength; }
-    public int setStrength(int new) { this.strength = new; }
+    public void setStrength(int strength) { this.strength = strength; }
     
     public int getDexterity() { return this.dexterity; }
-    public int setDexterity(int new) { this.dexterity = new; }
+    public void setDexterity(int dext) { this.dexterity = dext; }
     
     public int getIntelligence() { return this.intelligence; }
-    public int setIntelligence(int new) { this.intelligence = new; }
+    public void setIntelligence(int intel) { this.intelligence = intel; }
     
 
      /** FOLLOWING 4 MOVE METHODS
@@ -84,33 +83,33 @@ public class MovableEntity extends Entity {
      * @param aMap a map instance
      */
     public void moveUp(Map aMap) {
-        if (aMap.isValidMove(new Location(this.getX(), this.getY() - 1))) {
-            this.getLocation().setY(this.getY() - 1);
-            aMap.replaceElement(new Location(this.getX(), this.getY() + 1), ' ');
+        if (aMap.isValidMove(new Location(this.getLocation().getX(), this.getLocation().getY() - 1))) {
+            this.setY(this.getLocation().getY() - 1);
+            aMap.replaceElement(new Location(this.getLocation().getX(), this.getLocation().getY() + 1), new Space(new Location(this.getLocation().getX(), this.getLocation().getY() + 1)));
         } else {
             System.out.println("Invalid Move!");
         }
     }
     public void moveLeft(Map aMap) {
-        if (aMap.isValidMove(new Location(this.getX() - 1, this.getY()))) {
-            this.getLocation().setX(this.getX() - 1);
-            aMap.replaceElement(new Location(this.getX() + 1, this.getY()), ' ');
+        if (aMap.isValidMove(new Location(this.getLocation().getX() - 1, this.getLocation().getY()))) {
+            this.setX(this.getLocation().getX() - 1);
+            aMap.replaceElement(new Location(this.getLocation().getX() + 1, this.getLocation().getY()), new Space(new Location(this.getLocation().getX() + 1, this.getLocation().getY())));
         } else {
             System.out.println("Invalid Move!");
         }
     }
     public void moveDown(Map aMap) {
-        if (aMap.isValidMove(new Location(this.getX(), this.getY() + 1))) {
-            this.getLocation().setY(this.getY() + 1);
-            aMap.replaceElement(new Location(this.getX(), this.getY() - 1), ' ');
+        if (aMap.isValidMove(new Location(this.getLocation().getX(), this.getLocation().getY() + 1))) {
+            this.setY(this.getLocation().getY() + 1);
+            aMap.replaceElement(new Location(this.getLocation().getX(), this.getLocation().getY() - 1), new Space(new Location(this.getLocation().getX(), this.getLocation().getY() - 1)));
         } else {
             System.out.println("Invalid Move!");
         }
     }
     public void moveRight(Map aMap) {
-        if (aMap.isValidMove(new Location(this.getX() + 1, this.getY()))) {
-            this.getLocation().setX(this.getX() + 1);
-            aMap.replaceElement(new Location(this.getX() - 1, this.getY()), ' ');
+        if (aMap.isValidMove(new Location(this.getLocation().getX() + 1, this.getLocation().getY()))) {
+            this.setX(this.getLocation().getX() + 1);
+            aMap.replaceElement(new Location(this.getLocation().getX() - 1, this.getLocation().getY()), new Space(new Location(this.getLocation().getX() - 1, this.getLocation().getY())));
         } else {
             System.out.println("Invalid Move!");
         }

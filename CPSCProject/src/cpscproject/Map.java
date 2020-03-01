@@ -39,11 +39,13 @@ public class Map {
 					char character = line.charAt(column);
 					
 					if (character == 'C') {
-						exit = new Exit(column, row);
+						exit = new Exit(new Location(column, row));
 						this.mapLayout[row][column] = new Exit(new Location(column, row));
 					}else if (character == 'W') {
 						this.mapLayout[row][column] = new Wall(new Location(column, row));
-					}
+					} else {
+                                                this.mapLayout[row][column] = new Space(new Location(column, row));
+                                        }
 			}
 		}		
 
@@ -72,8 +74,8 @@ public class Map {
 	public boolean isValidMove(Location location) {
 
 		if (this.mapLayout[location.getY()][location.getX()] instanceof Wall){
-			return true;
-		}else{return false;}
+			return false;
+		}else{return true;}
 
 	
 	}

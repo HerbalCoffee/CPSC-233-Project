@@ -22,13 +22,7 @@ public class Entity {
 		this.entityLocation.setX(x);
 	}
 	
-	public int getX() {
-		return this.getLocation.getX();
-	}
 	
-	public int getY() {
-		return this.getLocation.getY();
-	}
 	
 	public void setY(int y) {
 		this.entityLocation.setY(y);
@@ -44,10 +38,10 @@ public class Entity {
 	 */
 
 	public double distanceFrom(Entity otherEntity) {
-		int x1 = this.getX();
-		int y1 = this.getY();
-		int x2 = otherEntity.getX();
-		int y2 = otherEntity.getY();
+		int x1 = this.getLocation().getX();
+		int y1 = this.getLocation().getY();
+		int x2 = otherEntity.getLocation().getX();
+		int y2 = otherEntity.getLocation().getY();
 		double distance = Math.sqrt((Math.pow(((double)(x2 - x1)), 2)) + (Math.pow(((double)(y2 - y1)), 2)));
 		return distance;
 	}

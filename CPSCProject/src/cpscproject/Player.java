@@ -53,14 +53,14 @@ public class Player extends MovableEntity {
         Collectible potion = null;
         if (!inventory.isEmpty()) {
             for (int index = 0; index < inventory.size(); index++) {
-                if (inventory.get(index).getType() == 'H') {
+                if (inventory.get(index).getChar()== 'H') {
                     potion = this.inventory.get(index);
                     healthPotionExists = true;
                 }
             }
         }
         if (healthPotionExists) {
-            this.addHealth(10);
+            this.setHealth(this.getHealth() + 10);
             this.removeCollectible(potion);
             System.out.println("Health Potion Used!");
             System.out.println("Player Health: " + this.getHealth());
