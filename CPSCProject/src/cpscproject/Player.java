@@ -1,18 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cpscproject;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author klarshin
- */
 public class Player extends MovableEntity {
-
     private ArrayList<Collectible> inventory;
 
     /**
@@ -21,7 +11,7 @@ public class Player extends MovableEntity {
      * @param aLocation
      */
     public Player(double Health, double Damage, Location location) {
-        super(Health, Damage, location, 'P');
+        super(Health, Damage, 0, 0, 0, 0, location, 'P');
         this.inventory = new ArrayList<Collectible>();
     }
 
@@ -30,7 +20,9 @@ public class Player extends MovableEntity {
      * 
      * @param anEnemy the enemy to attack
      */
-    public void attack(Enemy anEnemy) {anEnemy.setHealth(anEnemy.getHealth() - this.getDamage());}
+    public void attack(Enemy anEnemy) {
+        anEnemy.setHealth(anEnemy.getHealth() - this.getDamage(""));
+    }
 
 
     /**
