@@ -1,3 +1,4 @@
+/////////////////////TODO implement dodge chance, hit chance
 package cpscproject;
 
 import java.util.ArrayList;
