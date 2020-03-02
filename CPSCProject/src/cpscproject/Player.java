@@ -1,4 +1,4 @@
-/////////////////////TODO implement dodge chance, hit chance
+/////////////////////TODO implement dodge chance, hit chance, carry weight, Unequiping current item in slot when equipping a new item
 package cpscproject;
 
 import java.util.ArrayList;
@@ -33,51 +33,147 @@ public class Player extends MovableEntity {
     
     public void equipHead(Armor head) {
         //if (head.type().equals("head")) { //TODO, check if head is a headgear and if can be equipped
-        this.equippedArmor[0] = head;
+        if (!this.equippedArmor[0].equals(null)) {
+            this.equippedArmor[0] = head;
+        } else {
+            this.unequipArmor("head");
+            this.equippedArmor[0] = head;
+        }
         //TODO Adjust stats according to armor; same with other equip methods
     }
     
     public void equipTorso(Armor torso) {
         //if (torso.type().equals("torso")) { //TODO
-        this.equippedArmor[1] = torso;
+        if (!this.equippedArmor[1].equals(null)) {
+            this.equippedArmor[1] = torso;
+        } else {
+            this.unequipArmor("torso");
+            this.equippedArmor[1] = torso;
+        }
     }
     
     public void equipHands(Armor hands) {
         //if (hands.type().equals("hands")) { //TODO
-        this.equippedArmor[2] = hands;
+        if (!this.equippedArmor[2].equals(null)) {
+            this.equippedArmor[2] = hands;
+        } else {
+            this.unequipArmor("hands");
+            this.equippedArmor[2] = hands;
+        }
     }
     
     public void equipLegs(Armor legs) {
         //if (legs.type().equals("legs")) { //TODO
-        this.equippedArmor[3] = legs;
+        if (!this.equippedArmor[3].equals(null)) {
+            this.equippedArmor[3] = legs;
+        } else {
+            this.unequipArmor("legs");
+            this.equippedArmor[3] = legs;
+        }
     }
     
     public void equipFeet(Armor feet) {
         //if (feet.type().equals("feet)) { //TODO
-        this.equippedArmor[4] = feet;
+        if (!this.equippedArmor[4].equals(null)) {
+            this.equippedArmor[4] = feet;
+        } else {
+            this.unequipArmor("feet");
+            this.equippedArmor[4] = feet;
+        }
     }
     
     public void equipArmor(Armor armor, String armorType) {
         switch (armorType) {
-                //TODO Add stat modifications according to armor
-            case "head" : 
-                this.equippedArmor[0] = armor;
+            //TODO Add stat modifications according to armor
+            case "head":
+                if (!this.equippedArmor[0].equals(null)) {
+                    this.equippedArmor[0] = armor;
+                } else {
+                    this.unequipArmor("head");
+                    this.equippedArmor[0] = armor;
+                }
                 break;
-            case "torso" :
-                this.equippedArmor[1] = armor;
+            case "torso":
+                if (!this.equippedArmor[1].equals(null)) {
+                    this.equippedArmor[1] = armor;
+                } else {
+                    this.unequipArmor("torso");
+                    this.equippedArmor[1] = armor;
+                }
                 break;
-            case "hands" :
-                this.equippedArmor[2] = armor;
+            case "hands":
+                if (!this.equippedArmor[2].equals(null)) {
+                    this.equippedArmor[2] = armor;
+                } else {
+                    this.unequipArmor("hands");
+                    this.equippedArmor[2] = armor;
+                }
                 break;
-            case "legs" :
-                this.equippedArmor[3] = armor;
+            case "legs":
+                if (!this.equippedArmor[3].equals(null)) {
+                    this.equippedArmor[3] = armor;
+                } else {
+                    this.unequipArmor("legs");
+                    this.equippedArmor[3] = armor;
+                }
                 break;
-            case "feet" :
-                this.equippedArmor[4] = armor;
+            case "feet":
+                if (!this.equippedArmor[4].equals(null)) {
+                    this.equippedArmor[4] = armor;
+                } else {
+                    this.unequipArmor("feet");
+                    this.equippedArmor[4] = armor;
+                }
                 break;
-                
+        }
     }
     
+    /*
+    * Unqeuip weapon from specified slot and return it to inventory
+    * TODO make weapon unable to be returned to inventory if capacity is reached
+    *
+    */
+    public void unequipWeapon(String slot) {
+        switch (slot) {
+            case "main" :
+                this.addCollectible(this.equippedHands[0]);
+                this.equippedHands[0] = null;
+                break;
+            case "off" :
+                this.addCollectible(this.equippedHands[1]);
+                this.equippedHands[0] = null;
+                break;
+        }
+    }
+    
+    /*
+    * Unequips armor from specified slot and returns it to the inventory
+    * TODO Make armor unable to be returned to inventory if capactiy is reached
+    */
+    public void unequipArmor(String slot) {
+        switch (slot) {
+            case "head" : 
+                this.addCollectible(this.equippedArmor[0]);
+                this.equippedArmor[0] = null;
+                break;
+            case "torso" :
+                this.addCollectible(this.equippedArmor[1]);
+                this.equippedArmor[1] = null;
+                break;
+            case "hands" :
+                this.addCollectible(this.equippedArmor[2]);
+                this.equippedArmor[2] = null;
+                break;
+            case "legs" :
+                this.addCollectible(this.equippedArmor[3]);
+                this.equippedArmor[3] = null;
+                break;
+            case "feet" :
+                this.addCollectible(this.equippedArmor[4]);
+                this.equippedArmor[4] = null;
+                break;
+        }
+    }
     
 
     /**
