@@ -15,7 +15,7 @@ public class Spawner {
         int numEnemies = 0;
         while (numEnemies < numOfEnemies) {
             Location aLocation = new Location((int) (Math.random() * aMap.mapLayout[0].length), (int) (Math.random() * aMap.mapLayout.length));
-            if (aMap.getElement(aLocation) instanceof Space) {
+            if (aMap.getElement(aLocation) == null) {
                 Enemy theEnemy = new Enemy( (int) (Math.random() * 20) + 1, (int) (Math.random() * 10), new Location(aLocation));
                 //Add each enemy into the map
                 aMap.mapLayout[theEnemy.getLocation().getY()][theEnemy.getLocation().getX()] = theEnemy;
@@ -29,7 +29,7 @@ public class Spawner {
         boolean spawned = false;
         while (!spawned) {
             Location aLocation = new Location((int) (Math.random() * aMap.mapLayout[0].length), (int) (Math.random() * aMap.mapLayout.length));
-            if (aMap.getElement(aLocation) instanceof Space) {
+            if (aMap.getElement(aLocation) == null) {
                 spawned = true;
                 //Create a new player instance in the spawned location
                 return new Player(50, 10, new Location(aLocation));

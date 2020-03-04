@@ -44,7 +44,7 @@ public class TextApp {
         do {
 
             // Set the player's location
-            theMap.mapLayout[thePlayer.getLocation().getY()][thePlayer.getLocation().getX()] = thePlayer;
+            //theMap.mapLayout[thePlayer.getLocation().getY()][thePlayer.getLocation().getX()] = thePlayer;
             
             theMap.printMap();
 
