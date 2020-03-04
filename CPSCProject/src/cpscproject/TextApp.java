@@ -25,31 +25,13 @@ public class TextApp {
         //(Temporarily) create variables for player x and y location
         Player thePlayer = null;
 
-        //Randomly select a place for the player to spawn
-        boolean spawned = false;
-        while (!spawned) {
-            Location aLocation = new Location((int) (Math.random() * theMap.mapLayout[0].length), (int) (Math.random() * theMap.mapLayout.length));
-            if (theMap.getElement(aLocation) instanceof Space) {
-                spawned = true;
-                //Create a new player instance in the spawned location
-                thePlayer = new Player(50, 10, new Location(aLocation));
-            }
-        }
+        
+        thePlayer = Spawner.spawnPlayer(theMap);
 
         theMap.mapLayout[thePlayer.getLocation().getY()][thePlayer.getLocation().getX()] = thePlayer;
         
-        //Randomly spawn three enemies on the screen
-        int numEnemies = 0;
-        while (numEnemies < 3) {
-            Location aLocation = new Location((int) (Math.random() * theMap.mapLayout[0].length), (int) (Math.random() * theMap.mapLayout.length));
-            if (theMap.getElement(aLocation) instanceof Space) {
-                Enemy theEnemy = new Enemy( (int) (Math.random() * 20) + 1, (int) (Math.random() * 10), new Location(aLocation));
-                //Add each enemy into the map
-                theMap.mapLayout[theEnemy.getLocation().getY()][theEnemy.getLocation().getX()] = theEnemy;
-                theMap.addEnemy(theEnemy);
-                numEnemies++;
-            }
-        }
+        Spawner.spawnEnemies(theMap, 3);
+        
 
         //Instantiate the game loop control
         boolean run = true;
@@ -63,11 +45,6 @@ public class TextApp {
 
             // Set the player's location
             theMap.mapLayout[thePlayer.getLocation().getY()][thePlayer.getLocation().getX()] = thePlayer;
-
-            //Print the map
-            /*for (int i = 0; i < theMap.mapLayout.length; i++) {
-                System.out.println(theMap.mapLayout[i]);
-            }*/
             
             theMap.printMap();
 
