@@ -18,20 +18,18 @@ public class TextApp {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException {
-         
+
         //Declare new map instance
         Map theMap = new Map(TextApp.class.getResource("Map1.txt").getPath());
 
         //(Temporarily) create variables for player x and y location
         Player thePlayer = null;
 
-        
         thePlayer = Spawner.spawnPlayer(theMap);
 
         theMap.mapLayout[thePlayer.getLocation().getY()][thePlayer.getLocation().getX()] = thePlayer;
-        
+
         Spawner.spawnEnemies(theMap, 3);
-        
 
         //Instantiate the game loop control
         boolean run = true;
@@ -44,12 +42,12 @@ public class TextApp {
         do {
 
             // Set the player's location
-            //theMap.mapLayout[thePlayer.getLocation().getY()][thePlayer.getLocation().getX()] = thePlayer;
-            
+            theMap.mapLayout[thePlayer.getLocation().getY()][thePlayer.getLocation().getX()] = thePlayer;
+
             theMap.printMap();
 
             System.out.println(special);
-            
+
             //Check to see if the player is at an exit, and only let them leave if all enemies have been defeated
             if (special.contains("exit")) {
                 if (theMap.enemyList.isEmpty()) {
@@ -136,37 +134,44 @@ public class TextApp {
             System.out.println("Thanks for playing!");
         }
     }
-   /**
-    *  doSpecialActions 
-    *  A method that returns special strings based on events as the game is played
-    *
-    *  @param Map aMap (a Map object)
-    *  @param Player aPlayer (a Player object)
-    *
-    *  @return String special, a string representing the special action to execute or print
-    */
+
+    /**
+     * doSpecialActions A method that returns special strings based on events as
+     * the game is played
+     *
+     * @param Map aMap (a Map object)
+     * @param Player aPlayer (a Player object)
+     *
+     * @return String special, a string representing the special action to
+     * execute or print
+     */
 
     public static String doSpecialActions(Map theMap, Player aPlayer) {
-        char currInLoc = theMap.getElement(aPlayer.getLocation()).getChar();
-        if (currInLoc == 'I') {
-            //aPlayer.increaseAttack(2);
-            return "You picked up an Iron Sword!";
-        }
-        if (currInLoc == 'H') {
-            //Collectible HealthPotion = new Collectible('H');
-            //aPlayer.addCollectible(HealthPotion);
-            return "You picked up a health potion!";
-        }
-        if (currInLoc == 'E') {
-            return "You encountered an enemy!";
-        }
-        if (currInLoc == 'C') {
-            if (theMap.enemyList.isEmpty()) {
-                return "You reached the exit";
-            } else {
-                return "You cannot use the exit! Not all enemies have been defeated!";
+        if (theMap.getElement(aPlayer.getLocation()) != null) {
+            char currInLoc = theMap.getElement(aPlayer.getLocation()).getChar();
+            if (currInLoc == 'I') {
+                //aPlayer.increaseAttack(2);
+                return "You picked up an Iron Sword!";
             }
+            if (currInLoc == 'H') {
+                //Collectible HealthPotion = new Collectible('H');
+                //aPlayer.addCollectible(HealthPotion);
+                return "You picked up a health potion!";
+            }
+            if (currInLoc == 'E') {
+                System.out.println("enemy");
+                return "You encountered an enemy!";
+            }
+            if (currInLoc == 'C') {
+                if (theMap.enemyList.isEmpty()) {
+                    return "You reached the exit";
+                } else {
+                    return "You cannot use the exit! Not all enemies have been defeated!";
+                }
+            }
+            return "";
         }
+        
         return "";
     }
 
