@@ -38,14 +38,25 @@ public class Spawner {
         return null;
     }
     
-    public static void spawnCollectible(Map aMap, Collectible aCollectible, int numOfItems){
+    public static void spawnConsumable(Map aMap, int numOfItems){
         int numItems = 0;
         while(numItems < numOfItems){
             Location aLocation = new Location((int) (Math.random() * aMap.mapLayout[0].length), (int) (Math.random() * aMap.mapLayout.length));
             if (aMap.getElement(aLocation) == null) {
-                aCollectible.setX(aLocation.getX());
-                aCollectible.setY(aLocation.getY());
-                aMap.mapLayout[aCollectible.getLocation().getY()][aCollectible.getLocation().getX()] = aCollectible;
+                Consumable newConsumable = new Consumable(new Location(aLocation),'H',"Health Potion",(Math.random()*((30-10)+1))+10);
+                aMap.replaceElement(newConsumable.getLocation(),newConsumable);
+                numItems++;
+            }
+        }
+    }
+
+    public static void spawnWeapon(Map aMap, int numOfItems){
+        int numItems = 0;
+        while(numItems < numOfItems){
+            Location aLocation = new Location((int) (Math.random() * aMap.mapLayout[0].length), (int) (Math.random() * aMap.mapLayout.length));
+            if (aMap.getElement(aLocation) == null) {
+                Weapon newWeapon = new Weapon(new Location(aLocation),'I',"Iron Sword",((Math.random()*((30-10)+1))+10),0.0);
+                aMap.replaceElement(newWeapon.getLocation(),newWeapon);
                 numItems++;
             }
         }

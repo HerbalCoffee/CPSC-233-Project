@@ -6,6 +6,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.Scene;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import javafx.scene.canvas.*;
 import javafx.scene.shape.*;
@@ -36,19 +38,38 @@ public class GUIApplication extends Application
         Group root = new Group();
         Scene scene = new Scene(root);
         GridPane baseGridPane = new GridPane();
-        Button test = new Button("Obama");
 
-        //Setting size for the pane
-        baseGridPane.setMinSize(1400, 700);
+    // Code Written by Yang Liu (2020)
+        int width = 800;
+        int height = 600;
 
-        //Setting the padding
-        baseGridPane.setPadding(new Insets(10, 10, 10, 10));
+        // Let's say the pane is 6x5
+        int numCols = 15;
+        int numRows = 10;
 
+        for (int i = 0; i < numCols; i++) {
+            ColumnConstraints colConst = new ColumnConstraints();
+            colConst.setPercentWidth((double) width / numCols);
+            baseGridPane.getColumnConstraints().add(colConst);
+        }
+        for (int i = 0; i < numRows; i++) {
+            RowConstraints rowConst = new RowConstraints();
+            rowConst.setPercentHeight((double) height / numRows);
+            baseGridPane.getRowConstraints().add(rowConst);
+        }
+        //End of Yang Liu's Contributions
 
-        baseGridPane.add(importCobbleStone(), 0,0);
-        baseGridPane.add(importCobbleStone(),0,1);
-        baseGridPane.add(importCobbleStone(),1,0);
-        baseGridPane.add(test,0,2);
+        Map theMap = new Map(TextApp.class.getResource("Map3.txt").getPath());
+
+        for (int row = 0; row < theMap.mapLayout.length; row++) {
+            for (int column = 0; column < theMap.mapLayout[0].length; column++) {
+                if(theMap.mapLayout[row][column] == null){
+                    baseGridPane.add(importOpenSpace(),column,row);
+                }else if (theMap.mapLayout[row][column] instanceof Wall){
+                    baseGridPane.add(importWall(),column,row);
+                }
+            }
+        }
 
 
 
@@ -58,18 +79,22 @@ public class GUIApplication extends Application
         primaryStage.show();
     }
 
-    public ImageView importCobbleStone() throws Exception{
+    public ImageView importOpenSpace() throws Exception{
 
-        Image image = new Image(new FileInputStream("CPSCProject/src/cpscproject/stone2.jpg"));
+        //Image Taken from: https://opengameart.org/content/stone-texture-bump
+        Image image = new Image(new FileInputStream("CPSCProject/src/cpscproject/openSpace.jpg"), 50, 50,false , false);
 
-        //Setting the image view
         ImageView imageView = new ImageView(image);
 
-        imageView.setFitHeight(50);
-        imageView.setFitWidth(50);
+        return imageView;
+    }
 
-        //Setting the preserve ratio of the image view
-        imageView.setPreserveRatio(true);
+    public ImageView importWall() throws Exception{
+
+        //Image Taken from: https://assetstore.unity.com/packages/2d/textures-materials/stone/stone-wall-texture-pack-01-30957
+        Image image = new Image(new FileInputStream("CPSCProject/src/cpscproject/wall.jpg"), 50, 50,false , false);
+
+        ImageView imageView = new ImageView(image);
 
         return imageView;
     }

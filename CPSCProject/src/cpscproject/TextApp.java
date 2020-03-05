@@ -27,7 +27,7 @@ public class TextApp {
 
         thePlayer = Spawner.spawnPlayer(theMap);
 
-        theMap.mapLayout[thePlayer.getLocation().getY()][thePlayer.getLocation().getX()] = thePlayer;
+        theMap.replaceElement(thePlayer.getLocation(), thePlayer);
 
         Spawner.spawnEnemies(theMap, 3);
 
@@ -42,7 +42,7 @@ public class TextApp {
         do {
 
             // Set the player's location
-            theMap.mapLayout[thePlayer.getLocation().getY()][thePlayer.getLocation().getX()] = thePlayer;
+            theMap.replaceElement(thePlayer.getLocation(),thePlayer);
 
             theMap.printMap();
 
@@ -93,6 +93,8 @@ public class TextApp {
                     System.out.println("You killed the enemy!");
                     System.out.println("Player Health: " + thePlayer.getHealth());
                     theMap.removeEnemy(anEnemy);
+                    thePlayer.setLevel(thePlayer.getLevel()+0.5);
+                    System.out.println("The Player's Level is: " + thePlayer.getLevel());
                     special = doSpecialActions(theMap, thePlayer);
                 }
             } else {
@@ -150,7 +152,6 @@ public class TextApp {
         if (theMap.getElement(aPlayer.getLocation()) != null) {
             char currInLoc = theMap.getElement(aPlayer.getLocation()).getChar();
             if (currInLoc == 'I') {
-                //aPlayer.increaseAttack(2);
                 return "You picked up an Iron Sword!";
             }
             if (currInLoc == 'H') {
@@ -174,5 +175,6 @@ public class TextApp {
         
         return "";
     }
+
 
 }
