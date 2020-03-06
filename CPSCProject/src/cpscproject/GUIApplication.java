@@ -126,8 +126,8 @@ public class GUIApplication extends Application
         primaryStage.show();
 
 
-        Player finalThePlayer = thePlayer;
 
+        Player finalThePlayer = thePlayer;
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -163,6 +163,8 @@ public class GUIApplication extends Application
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                }else if (event.getCode() == KeyCode.H){
+                    finalThePlayer.useHealthPotion();
                 }
             }
         });
