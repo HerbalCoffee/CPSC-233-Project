@@ -138,4 +138,8 @@ public class Map {
         }
     }
 
+    public ArrayList<Enemy> getEnemyList(){
+        return this.enemyList;
+    }
+
 }
