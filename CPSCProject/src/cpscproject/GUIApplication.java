@@ -133,6 +133,7 @@ public class GUIApplication extends Application
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.W) {
                     try {
+                        playerGridPane.getChildren().clear();
                         finalThePlayer.moveUp(theMap);
                         playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
                     } catch (Exception e) {
@@ -140,6 +141,7 @@ public class GUIApplication extends Application
                     }
                 }else if (event.getCode() == KeyCode.S){
                     try {
+                        playerGridPane.getChildren().clear();
                         finalThePlayer.moveDown(theMap);
                         playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
                     } catch (Exception e) {
@@ -147,6 +149,7 @@ public class GUIApplication extends Application
                     }
                 }else if (event.getCode() == KeyCode.A){
                     try {
+                        playerGridPane.getChildren().clear();
                         finalThePlayer.moveLeft(theMap);
                         playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
                     } catch (Exception e) {
@@ -154,6 +157,7 @@ public class GUIApplication extends Application
                     }
                 }else if (event.getCode() == KeyCode.D){
                     try {
+                        playerGridPane.getChildren().clear();
                         finalThePlayer.moveRight(theMap);
                         playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
                     } catch (Exception e) {
