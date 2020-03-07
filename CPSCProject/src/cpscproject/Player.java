@@ -7,7 +7,7 @@ public class Player extends MovableEntity {
     private ArrayList<Collectible> inventory;
     private Collectible[] equippedHands = new Collectible[2]; // Equipment slots for main hand [0] and offhand [1]
     private Collectible[] equippedArmor = new Collectible[5]; // Equipment slots for armor. Head [0], Torso [1], Hands[2], Legs [3], Feet [4]
-    private double level;
+    private int level;
     // CAN ADD ANOTHER ARRAY FOR THINGS LIKE RINGS, AMULETS ETC.
     
     /**
@@ -21,11 +21,11 @@ public class Player extends MovableEntity {
         this.level = 0.0;
     }
 
-    public void setLevel(double newLevel){
+    public void setLevel(int newLevel){
         this.level = newLevel;
     }
 
-    public double getLevel(){
+    public int getLevel(){
         return this.level;
     }
 
