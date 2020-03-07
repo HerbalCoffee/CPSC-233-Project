@@ -30,6 +30,9 @@ public class TextApp {
         theMap.replaceElement(thePlayer.getLocation(), thePlayer);
 
         Spawner.spawnEnemies(theMap, 3);
+        
+        Spawner.spawnConsumable(theMap, 2);
+        Spawner.spawnWeapon(theMap, 1);
 
         //Instantiate the game loop control
         boolean run = true;
@@ -93,7 +96,7 @@ public class TextApp {
                     System.out.println("You killed the enemy!");
                     System.out.println("Player Health: " + thePlayer.getHealth());
                     theMap.removeEnemy(anEnemy);
-                    thePlayer.setLevel(thePlayer.getLevel()+0.5);
+                    thePlayer.setLevel(thePlayer.getLevel()+1);
                     System.out.println("The Player's Level is: " + thePlayer.getLevel());
                     special = doSpecialActions(theMap, thePlayer);
                 }

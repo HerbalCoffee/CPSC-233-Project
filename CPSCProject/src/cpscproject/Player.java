@@ -18,7 +18,7 @@ public class Player extends MovableEntity {
     public Player(double Health, double Damage, Location location) {
         super(Health, Damage, 0, 0, 0, 0, location, 'P');
         this.inventory = new ArrayList<Collectible>();
-        this.level = 0.0;
+        this.level = 0;
     }
 
     public void setLevel(int newLevel){
