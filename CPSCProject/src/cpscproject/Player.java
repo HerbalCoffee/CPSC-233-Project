@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Player extends MovableEntity {
     private ArrayList<Collectible> inventory;
-    private Hashtable equipment = new Hashtable();
+    private HashMap equipment = new HashMap();
     private Collectible[] equippedHands = new Collectible[2]; // Equipment slots for main hand [0] and offhand [1]
     private Collectible[] equippedArmor = new Collectible[5]; // Equipment slots for armor. Head [0], Torso [1], Hands[2], Legs [3], Feet [4]
     private int level;
