@@ -1,6 +1,7 @@
 # Dungeon Disaster
 #### By **Michael Potemkin, Kirill Larshin, Jeremy Kimotho, Martin Wong**
 #### 08-March-2020
+#### Repository: https://github.com/HerbalCoffee/Our-Project-CPSC
 ## Description
 A rogue-like adventure game. The player is able to explore randomly generated maps, collect items and fight enemies in order to battle a final boss.
 ## Setup/Installation Requirements
