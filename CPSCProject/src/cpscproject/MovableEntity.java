@@ -20,6 +20,8 @@ public class MovableEntity extends Entity {
         this.baseHealth = health;
         this.health = health;
         this.calculateActualHealth();
+        this.defense = 0;
+        this.accuracy = 0;
         this.baseDamage = baseDamage;
         this.endurance = endurance;
         this.strength = strength;
