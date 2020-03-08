@@ -1,4 +1,4 @@
-# CPSC Project (Name in Progress)
+# Dungeon Disaster
 #### By **Michael Potemkin, Kirill Larshin, Jeremy Kimotho, Martin Wong**
 #### 08-March-2020
 ## Description
@@ -11,6 +11,8 @@ A rogue-like adventure game. The player is able to explore randomly generated ma
 3. Open the terminal and navigate to the downloaded directory
 4. Run java -jar TextBased.jar while in the directory via the terminal
 5. Enjoy!
+
+## How to run (GUI)
 
 MIT License
 
