@@ -18,6 +18,7 @@ public class MovableEntity extends Entity {
             int dexterity, int intelligence, Location location, char character) {
         super(location, character);
         this.baseHealth = health;
+        this.health = health;
         this.calculateActualHealth();
         this.baseDamage = baseDamage;
         this.endurance = endurance;
