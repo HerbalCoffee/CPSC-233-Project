@@ -5,14 +5,24 @@
 A rogue-like adventure game. The player is able to explore randomly generated maps, collect items and fight enemies in order to battle a final boss.
 ## Setup/Installation Requirements
 * Java 8 or later
-## How to run (Text-Based)
+## How to build/run (Text-Based)
 1. Ensure that a Java JVM is installed on your machine (run Java -version from the terminal)
 2. Download/Clone this repository
 3. Open the terminal and navigate to the downloaded directory
-4. Run java -jar TextBased.jar while in the directory via the terminal
-5. Enjoy!
-
-## How to run (GUI)
+4. Navigate to CPSCProject/src/cpscproject
+5. Run javac *.java inside this directory
+6. Navigate to CPSCProject/src
+7. Run java cpscproject.TextApp from inside this directory
+8. Enjoy!
+## How to build/run (GUI-Based)
+1. Ensure that a Java JVM is installed on your machine (run Java -version from the terminal)
+2. Download/Clone this repository
+3. Open the terminal and navigate to the downloaded directory
+4. Navigate to CPSCProject/src/cpscproject
+5. Run javac *.java inside this directory
+6. Navigate to CPSCProject/src
+7. Run java cpscproject.GUIApplication from inside this directory
+8. Enjoy!
 
 MIT License
 
