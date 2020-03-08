@@ -204,7 +204,7 @@ public class GUIApplication extends Application {
 
     public ImageView importDoor() throws Exception {
 
-        //Image Taken from: https://assetstore.unity.com/packages/2d/textures-materials/stone/stone-wall-texture-pack-01-30957
+        //Image Taken from: https://nebula-games.itch.io/resident-evil-door-transition
         Image image = new Image(new FileInputStream(GUIApplication.class.getResource("doorSprite.png").getPath()), 50, 50, false, false);
 
         ImageView imageView = new ImageView(image);
@@ -214,7 +214,7 @@ public class GUIApplication extends Application {
 
     public ImageView importPlayer() throws Exception {
 
-        //Image Taken from: https://assetstore.unity.com/packages/2d/textures-materials/stone/stone-wall-texture-pack-01-30957
+        //Image Taken from: https://www.pixilart.com/art/player-character-sprite-recreation-2-64629c0ba19e223
         Image image = new Image(new FileInputStream(GUIApplication.class.getResource("player.png").getPath()), 50, 50, false, false);
 
         ImageView imageView = new ImageView(image);
@@ -224,8 +224,28 @@ public class GUIApplication extends Application {
 
     public ImageView importEnemy() throws Exception {
 
-        //Image Taken from: https://assetstore.unity.com/packages/2d/textures-materials/stone/stone-wall-texture-pack-01-30957
+        //Image Taken from: https://ya-webdesign.com/explore/transparent-sprite-enemy/
         Image image = new Image(new FileInputStream(GUIApplication.class.getResource("enemy.png").getPath()), 50, 50, false, false);
+
+        ImageView imageView = new ImageView(image);
+
+        return imageView;
+    }
+
+    public ImageView importHealthPotion() throws Exception {
+
+        //Image Taken from: https://ya-webdesign.com/explore/potion-of-healing-png/
+        Image image = new Image(new FileInputStream(GUIApplication.class.getResource("healthpotion.png").getPath()), 50, 50, false, false);
+
+        ImageView imageView = new ImageView(image);
+
+        return imageView;
+    }
+
+    public ImageView importIronSword() throws Exception {
+
+        //Image Taken from: https://webstockreview.net/explore/clipart-sword-iron-sword/
+        Image image = new Image(new FileInputStream(GUIApplication.class.getResource("ironsword.png").getPath()), 50, 50, false, false);
 
         ImageView imageView = new ImageView(image);
 
