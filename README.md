@@ -1,6 +1,6 @@
 # CPSC Project (Name in Progress)
 #### By **Michael Potemkin, Kirill Larshin, Jeremy Kimotho, Martin Wong**
-#### 20-Feb-2020
+#### 08-March-2020
 ## Description
 A rogue-like adventure game. The player is able to explore randomly generated maps, collect items and fight enemies in order to battle a final boss.
 ## Setup/Installation Requirements
