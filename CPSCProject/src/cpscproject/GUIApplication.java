@@ -135,8 +135,8 @@ public class GUIApplication extends Application {
         root.getChildren().add(baseStackPane);
         primaryStage.setTitle("Dungeon Disaster");
         primaryStage.setScene(scene);
-        playerHealth.setText("  Health: " + thePlayer.getHealth());
-        playerDamage.setText("  Damage: " + thePlayer.getDamage(""));
+        playerHealth.setText("  Health: " + Math.round(thePlayer.getHealth()));
+        playerDamage.setText("  Damage: " + Math.round(thePlayer.getDamage("")));
         primaryStage.show();
 
         Player finalThePlayer = thePlayer;
@@ -149,8 +149,8 @@ public class GUIApplication extends Application {
                         finalThePlayer.moveUp(theMap);
                         playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
                         doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane);
-                        playerHealth.setText("  Health: " + finalThePlayer.getHealth());
-                        playerDamage.setText("  Damage: " + finalThePlayer.getDamage(""));
+                        playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
+                        playerDamage.setText("  Damage: " + Math.round(finalThePlayer.getDamage("")));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -160,8 +160,8 @@ public class GUIApplication extends Application {
                         finalThePlayer.moveDown(theMap);
                         playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
                         doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane);
-                        playerHealth.setText("  Health: " + finalThePlayer.getHealth());
-                        playerDamage.setText("  Damage: " + finalThePlayer.getDamage(""));
+                        playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
+                        playerDamage.setText("  Damage: " + Math.round(finalThePlayer.getDamage("")));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -171,8 +171,8 @@ public class GUIApplication extends Application {
                         finalThePlayer.moveLeft(theMap);
                         playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
                         doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane);
-                        playerHealth.setText("  Health: " + finalThePlayer.getHealth());
-                        playerDamage.setText("  Damage: " + finalThePlayer.getDamage(""));
+                        playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
+                        playerDamage.setText("  Damage: " + Math.round(finalThePlayer.getDamage("")));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -182,13 +182,15 @@ public class GUIApplication extends Application {
                         finalThePlayer.moveRight(theMap);
                         playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
                         doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane);
-                        playerHealth.setText("  Health: " + finalThePlayer.getHealth());
-                        playerDamage.setText("  Damage: " + finalThePlayer.getDamage(""));
+                        playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
+                        playerDamage.setText("  Damage: " + Math.round(finalThePlayer.getDamage("")));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 } else if (event.getCode() == KeyCode.H) {
                     finalThePlayer.useHealthPotion();
+                    playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
+                    playerDamage.setText("  Damage: " + Math.round(finalThePlayer.getDamage("")));
                 }
             }
         });
@@ -319,6 +321,8 @@ public class GUIApplication extends Application {
 
                     if (aPlayer.getHealth() <= 0) {
                         anEnemy.setHealth(0);
+                        System.out.println("You died!");
+                        System.exit(0);
                     }
                 }
                 if (anEnemy.getHealth() <= 0 && aPlayer.getHealth() > 0) {
