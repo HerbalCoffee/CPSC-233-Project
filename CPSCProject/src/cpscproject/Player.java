@@ -39,11 +39,13 @@ public class Player extends MovableEntity {
         if (!this.equipment.get("main").equals(null)) {
             this.unequipWeapon("main");
             this.equipment.put("main", weapon);
+            this.setBaseDamage(weapon.getWeaponDamage());
         } else {
             this.equipment.put("main", weapon);
+            this.setBaseDamage(weapon.getWeaponDamage());
         }
         
-        //TODO Adjust stats according to weapon; change base damage to weapon's base damage
+        //TODO Implement weight and strength requirements
     }
     
     /*
@@ -61,19 +63,23 @@ public class Player extends MovableEntity {
         if (!this.equipment.get("head").equals(null)) {
             this.unequipWeapon("head");
             this.equipment.put("head", head);
+            this.setDefense(head.getProtection());
         } else {
             this.equipment.put("head", head);
+            this.setDefense(head.getProtection());
         }
         
-        //TODO Adjust stats according to armor; same with other equip methods
+        //TODO Implement weight and strength requirements
     }
     
     public void equipArmor(Armor armor) {
         if (!this.equipment.get("armor").equals(null)) {
             this.unequipWeapon("armor");
             this.equipment.put("armor", armor);
+            this.setDefense(armor.getProtection());
         } else {
             this.equipment.put("armor", armor);
+            this.setDefense(armor.getProtection());
         }
     }
     
