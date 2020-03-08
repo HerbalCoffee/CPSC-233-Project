@@ -155,11 +155,11 @@ public class TextApp {
         if (theMap.getElement(aPlayer.getLocation()) != null) {
             char currInLoc = theMap.getElement(aPlayer.getLocation()).getChar();
             if (currInLoc == 'I') {
+                aPlayer.addWeapon((Weapon) theMap.getElement(aPlayer.getLocation()));
                 return "You picked up an Iron Sword!";
             }
             if (currInLoc == 'H') {
-                //Collectible HealthPotion = new Collectible('H');
-                //aPlayer.addCollectible(HealthPotion);
+                aPlayer.addCollectible((Collectible) theMap.getElement(aPlayer.getLocation()));
                 return "You picked up a health potion!";
             }
             if (currInLoc == 'E') {

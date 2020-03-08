@@ -215,23 +215,38 @@ public class Player extends MovableEntity {
         this.inventory.remove(collectible);
     }
 
+    public void addWeapon(Weapon weapon){
+        this.inventory.add(weapon);
+        double tempDamage = 0.0;
+        for(Collectible item:inventory){
+            if (item instanceof Weapon && ((Weapon) item).getWeaponDamage() > tempDamage){
+                this.setBaseDamage(this.getDamage("default")+((Weapon) item).getWeaponDamage());
+            }
+        }
+    }
+
+    public void removeWeapon(Weapon weapon){
+        this.inventory.remove(weapon);
+        this.setBaseDamage(this.getDamage("default")-((Weapon) weapon).getWeaponDamage());
+    }
+
     /**
      * Uses a health potion in the player's inventory, if one exists
      *
      */
     public void useHealthPotion() {
         boolean healthPotionExists = false;
-        Collectible potion = null;
+        Consumable potion = null;
         if (!inventory.isEmpty()) {
             for (int index = 0; index < inventory.size(); index++) {
-                if (inventory.get(index).getChar()== 'H') {
-                    potion = this.inventory.get(index);
+                if (inventory.get(index) instanceof Consumable) {
+                    potion = (Consumable) this.inventory.get(index);
                     healthPotionExists = true;
                 }
             }
         }
         if (healthPotionExists) {
-            this.setHealth(this.getHealth() + 10);
+            this.setHealth(this.getHealth() + potion.getRestoreAmount());
             this.removeCollectible(potion);
             System.out.println("Health Potion Used!");
             System.out.println("Player Health: " + this.getHealth());
