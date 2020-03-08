@@ -86,7 +86,7 @@ public class Player extends MovableEntity {
    public void unequipWeapon(String slot) {
         if (slot.equals("main") || slot.equals("off"))  {
             if (!this.equipment.get(slot).equals(null)) {
-                this.addCollectible(this.equipment.get(slot));
+                this.addCollectible((Collectible)this.equipment.get(slot));
                 this.equipment.put(slot, null);
             }
         }
@@ -99,7 +99,7 @@ public class Player extends MovableEntity {
     public void unequipArmor(String slot) {
         if (slot.equals("head") || slot.equals("armor"))  {
             if (!this.equipment.get(slot).equals(null)) {
-                this.addCollectible(this.equipment.get(slot));
+                this.addCollectible((Collectible)this.equipment.get(slot));
                 this.equipment.put(slot, null);
             }
         }
