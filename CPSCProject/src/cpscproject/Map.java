@@ -10,10 +10,10 @@ import java.util.ArrayList;
 /**
  *
  *
+ * 
  */
 public class Map {
 
-    // Instantiates a 2D array of characters
     public Entity[][] mapLayout = new Entity[10][15];
     private Exit exit = null;
     public ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
@@ -52,16 +52,15 @@ public class Map {
 
     /**
      * Method that returns the element present in the map, at the given
-     * location, as a char
+     * location, as a reference to an Entity object
      *
      * @param location the location where the character is
-     * @return the character that is contained within the given location
+     * @return the Entity that is contained within the given location
      */
     public Entity getElement(Location location) {
         return mapLayout[location.getY()][location.getX()];
     }
 
-    // 
     /**
      * Method that checks whether the inputed location is a Wall, and returns a
      * boolean
@@ -83,16 +82,13 @@ public class Map {
     /**
      * Void Method that replaces a location in the map with a given character
      *
-     * @param location the location in which the character representation must
-     * be replaced
-     * @param charToReplaceWith the character to replace within the map at the
-     * given location
+     * @param location the location in which the Entity must be replaced
+     * @param theEntity the new Entity object to replace at the given location
      */
     public void replaceElement(Location location, Entity theEntity) {
         this.mapLayout[location.getY()][location.getX()] = theEntity;
     }
 
-    // 
     /**
      * Getter for the Exit Coordinates
      *
@@ -102,7 +98,6 @@ public class Map {
         return this.exit;
     }
 
-    // 
     /**
      * Method that adds an enemy to the list, as well as adds enemy location on
      * the character map
@@ -113,7 +108,6 @@ public class Map {
         enemyList.add(newEnemy);
     }
 
-    //
     /**
      * Method that removes an enemy from the list, as well as removes the
      * enemy's location from the character map
@@ -124,6 +118,10 @@ public class Map {
         enemyList.remove(newEnemy);
     }
 
+    /**
+     *  Method that prints the whole Map out to the console
+     * 
+     */
     public void printMap() {
 
         for (int row = 0; row < mapLayout.length; row++) {
@@ -138,6 +136,11 @@ public class Map {
         }
     }
 
+    /**
+     * Returns the reference to the ArrayList of enemies in the current map instance 
+     * 
+     * @return the reference to the Enemy ArrayList within this Map instance
+     */
     public ArrayList<Enemy> getEnemyList(){
         return this.enemyList;
     }

@@ -16,6 +16,7 @@ public class TextApp {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.FileNotFoundException
      */
     public static void main(String[] args) throws FileNotFoundException {
 
@@ -144,8 +145,8 @@ public class TextApp {
      * doSpecialActions A method that returns special strings based on events as
      * the game is played
      *
-     * @param Map aMap (a Map object)
-     * @param Player aPlayer (a Player object)
+     * @param theMap the main map object
+     * @param aPlayer the main player instance
      *
      * @return String special, a string representing the special action to
      * execute or print

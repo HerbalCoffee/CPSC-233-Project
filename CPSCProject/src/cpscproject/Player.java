@@ -3,6 +3,7 @@ package cpscproject;
 
 import java.util.*;
 
+
 public class Player extends MovableEntity {
     private ArrayList<Collectible> inventory;
     private HashMap equipment = new HashMap();
@@ -14,7 +15,9 @@ public class Player extends MovableEntity {
     /**
      * Creates an instance of the Player class based on a given location
      * 
-     * @param aLocation
+     * @param Health a double representing the Player's health
+     * @param Damage a double representing the amount of damage a player can inflict
+     * @param location the Location of the Player
      */
     public Player(double Health, double Damage, Location location) {
         super(Health, Damage, 0, 0, 0, 0, location, 'P');
@@ -26,15 +29,31 @@ public class Player extends MovableEntity {
         equipment.put("armor", null);
     }
 
+    /**
+     * Sets the level of the Player
+     *
+     * @param newLevel an integer representing the new level of the player to set
+     */
     public void setLevel(int newLevel){
         this.level = newLevel;
     }
 
+    /**
+     * Returns the player's current level
+     *
+     * @return an integer representing the Player's current level
+     */
     public int getLevel(){
         return this.level;
     }
   
     // EQUIPMENT RELATED METHODS
+
+    /**
+     * Equips the player's main hand with a given weapon
+     *
+     * @param weapon the weapon to equip in the player's main hand
+     */
     public void equipMainHand(Weapon weapon) {
         if (!this.equipment.get("main").equals(null)) {
             this.unequipWeapon("main");
@@ -58,7 +77,13 @@ public class Player extends MovableEntity {
         }
     }
     */
+
     
+    /**
+     * Equips the player's head with a given Armor
+     * 
+     * @param head the Armor object to equip to the Player's head
+     */
     public void equipHead(Armor head) {
         if (!this.equipment.get("head").equals(null)) {
             this.unequipWeapon("head");
@@ -72,6 +97,11 @@ public class Player extends MovableEntity {
         //TODO Implement weight and strength requirements
     }
     
+    /**
+     * Equips the player's body with a given armor
+     *
+     * @param armor the Armor to equip to the player's body
+     */
     public void equipArmor(Armor armor) {
         if (!this.equipment.get("armor").equals(null)) {
             this.unequipWeapon("armor");
@@ -84,11 +114,13 @@ public class Player extends MovableEntity {
     }
     
    
-    /*
-    * Unqeuip weapon from specified slot and return it to inventory
-    * TODO make weapon unable to be returned to inventory if capacity is reached
-    *
-    */
+    /**
+     * Unequips a weapon from a specified slot and returns to inventory.
+     * TODO make weapon unable to be returned to inventory if capacity is reached
+     *
+     * @param slot a string representing the hand ("main" or "off") to unequip the weapon from
+     */
+
    public void unequipWeapon(String slot) {
         if (slot.equals("main") || slot.equals("off"))  {
             if (!this.equipment.get(slot).equals(null)) {
@@ -98,10 +130,13 @@ public class Player extends MovableEntity {
         }
     }
     
-    /*
-    * Unequips armor from specified slot and returns it to the inventory
-    * TODO Make armor unable to be returned to inventory if capactiy is reached
-    */
+    /**
+     * Unequips armor from specified slot and returns it to the inventory.
+     * TODO Make armor unable to be returned to inventory if capacity is reached
+     * 
+     * @param slot a string representing the area ("head" or "armor") to unequip the armor from
+     */
+
     public void unequipArmor(String slot) {
         if (slot.equals("head") || slot.equals("armor"))  {
             if (!this.equipment.get(slot).equals(null)) {
@@ -140,6 +175,11 @@ public class Player extends MovableEntity {
         this.inventory.remove(collectible);
     }
 
+    /**
+     * Adds a given weapon to the Player's inventory, and increases base damage
+     *
+     * @param weapon the Weapon to give to the player
+     */
     public void addWeapon(Weapon weapon){
         this.inventory.add(weapon);
         double tempDamage = 0.0;
@@ -150,6 +190,11 @@ public class Player extends MovableEntity {
         }
     }
 
+    /**
+     * Removes a given weapon from the Player's inventory, and decreases the amount of base damage
+     * 
+     * @param weapon the weapon to remove from the player's inventory
+     */
     public void removeWeapon(Weapon weapon){
         this.inventory.remove(weapon);
         this.setBaseDamage(this.getDamage("default")-((Weapon) weapon).getWeaponDamage());

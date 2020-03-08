@@ -34,11 +34,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GUIApplication extends Application {
-
+    
+    /**
+     * Main method for running the GUI application
+     * 
+     * 
+     * @param args 
+     */
     public static void main(String[] args) {
         launch(args);
     }
-
+    
+    /**
+     * Method for starting the GUI application and handling key events
+     *
+     * @param primaryStage The main stage of the application
+     * @throws Exception 
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         Group root = new Group();
@@ -196,7 +208,13 @@ public class GUIApplication extends Application {
         });
 
     }
-
+    
+    /**
+     * Method for importing a sprite representing an open space stored in the application source
+     * 
+     * @return an ImageView object of a sprite representing an open space
+     * @throws Exception 
+     */
     public ImageView importOpenSpace() throws Exception {
 
         //Image Taken from: https://opengameart.org/content/stone-texture-bump
@@ -206,6 +224,12 @@ public class GUIApplication extends Application {
 
         return imageView;
     }
+    /**
+     * Method for importing a sprite representing a wall stored in the application source
+     *
+     * @return an ImageView object of a sprite representing a wall
+     * @throws Exception 
+     */
 
     public ImageView importWall() throws Exception {
 
@@ -216,6 +240,12 @@ public class GUIApplication extends Application {
 
         return imageView;
     }
+    /**
+     * Method for importing a sprite representing a door stored in the application source
+     * 
+     * @return an ImageView object of a sprite representing a door
+     * @throws Exception 
+     */
 
     public ImageView importDoor() throws Exception {
 
@@ -226,7 +256,13 @@ public class GUIApplication extends Application {
 
         return imageView;
     }
-
+    
+    /**
+     * Method for importing a sprite representing the player stored in the application source
+     * 
+     * @return an ImageView object of a sprite representing the player
+     * @throws Exception 
+     */
     public ImageView importPlayer() throws Exception {
 
         //Image Taken from: https://www.pixilart.com/art/player-character-sprite-recreation-2-64629c0ba19e223
@@ -236,7 +272,13 @@ public class GUIApplication extends Application {
 
         return imageView;
     }
-
+    
+    /**
+     * Method for importing a sprite representing an enemy stored in the application source
+     * 
+     * @return an ImageView object of a sprite representing an enemy
+     * @throws Exception 
+     */
     public ImageView importEnemy() throws Exception {
 
         //Image Taken from: https://ya-webdesign.com/explore/transparent-sprite-enemy/
@@ -246,7 +288,13 @@ public class GUIApplication extends Application {
 
         return imageView;
     }
-
+    
+    /**
+     * Method for importing a sprite representing a health potion stored in the application source
+     * 
+     * @return an ImageView object of a sprite representing a health potion
+     * @throws Exception 
+     */
     public ImageView importHealthPotion() throws Exception {
 
         //Image Taken from: https://ya-webdesign.com/explore/potion-of-healing-png/
@@ -256,7 +304,13 @@ public class GUIApplication extends Application {
 
         return imageView;
     }
-
+    
+    /**
+     * Method for importing a sprite representing an iron sword stored in the application source
+     * 
+     * @return an ImageView object of a sprite representing an iron sword
+     * @throws Exception 
+     */
     public ImageView importIronSword() throws Exception {
 
         //Image Taken from: https://webstockreview.net/explore/clipart-sword-iron-sword/
@@ -266,6 +320,16 @@ public class GUIApplication extends Application {
 
         return imageView;
     }
+    
+    /**
+     * Method that runs special actions during gameplay. 
+     * This handles removing elements from the map after entities have been collected/defeated, triggering enemy battles, and determining whether or not the player has completed the stage.
+     * 
+     * @param theMap the main Map object
+     * @param aPlayer the player object
+     * @param entityPane the GridPane on which enemies and items are spawned
+     * @param playerPane the GridPane on which the player is spawned
+     */
 
     public void doSpecialActions(Map theMap, Player aPlayer, GridPane entityPane, GridPane playerPane) {
         if (theMap.getElement(aPlayer.getLocation()) != null) {

@@ -1,8 +1,14 @@
 package cpscproject;
 
+
 public class Exit extends Entity {
 
-    public Exit(Location wallLocation){
-        super(wallLocation, 'C');
+    /**
+     * Create a new Exit object
+     *
+     * @param exitLoc the Location object representing the exit of the current stage
+     */
+    public Exit(Location exitLoc){
+        super(exitLoc, 'C');
     }
 }
