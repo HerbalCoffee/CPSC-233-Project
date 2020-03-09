@@ -6,6 +6,7 @@
 A rogue-like adventure game. The player is able to explore randomly generated maps, collect items and fight enemies in order to battle a final boss.
 ## Setup/Installation Requirements
 * Java 8 or later
+* JavaFX (For running the GUI version)
 ## How to build/run (Text-Based)
 1. Ensure that a Java JVM is installed on your machine (run Java -version from the terminal)
 2. Download/Clone this repository
