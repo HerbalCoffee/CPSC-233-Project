@@ -4,7 +4,7 @@ package cpscproject;
  *
  * @author klarshin
  */
-public class Entity {
+public abstract class Entity {
 
     private Location entityLocation;
     private char entityAsChar;
