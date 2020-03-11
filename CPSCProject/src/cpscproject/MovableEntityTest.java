@@ -27,4 +27,45 @@ public class MovableEntityTest {
 	    assertThat("Testing expected Intelligence", testMoveableEntity.getIntelligence(), is(equalTo(expectedIntelligence)));
 	    
 	}
+	
+	@Test
+	public void test_ConstructorWithStats_invalidHealth() {}
+	
+	@Test
+	public void test_ConstructorWithStats_invalidBaseDamage() {}
+	
+	@Test
+	public void test_ConstructorWithStats_invalidEndurance() {}
+	
+	@Test
+	public void test_ConstructorWithStats_invalidStrength() {}
+	
+	@Test
+	public void test_ConstructorWithStats_invalidDexterity() {}
+	
+	@Test
+	public void test_ConstructorWithStats_invalidIntelligence() {}
+	
+	@Test
+	public void test_ConstructorWithStats_invalidLocation() {}
+	
+	@Test
+	public void test_ConstructorWithStats_invalidCharacter() {}
+	
+	@Test
+	public void test_CalculateActualHealth() {}
+	
+	@Test
+	public void test_GetDamage_Physical() {}
+	
+	@Test
+	public void test_GetDamage_Magic() {}
+	
+	@Test
+	public void test_GetDamage_default() {}
+	
+	@Test
+	public void test_TakeDamage_default() {}
+	
+	
 }
