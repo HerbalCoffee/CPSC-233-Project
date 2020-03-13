@@ -1,2 +1,0 @@
-Iron Sword, 50, 0, I
-Steel Sword, 75, 0, S
