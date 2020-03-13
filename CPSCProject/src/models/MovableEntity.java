@@ -7,16 +7,19 @@ public class MovableEntity extends Entity {
     // CAN POSSIBLY PUT THESE IN A HASHTABLE LATER ON
     private double health;
     private final double baseHealth; // Initial health used to determine additional health gained by endurance
-    private double baseDamage; // Base damage 
-    private double accuracy; // Accuracy, determines if an attack hits or misses
-    private double defense; // Defense stat, reduces damage taken. Determined by equipment or preset enemy type
-    private int endurance; // Health multiplier
-    private int strength; // Ability to use equipment without penalties, carrying capacity
-    private int dexterity; // Hit chance, dodge chance, crit chance percentage
-    private int intelligence; // Magic damage + hit chance, xp gain, perception ability
+    private double baseDamage = 0; // Base damage 
+    private double accuracy = 0; // Accuracy, determines if an attack hits or misses NOT CURRENTLY USED
+    private double defense = 0; // Defense stat, reduces damage taken. Determined by equipment or preset enemy type
+    private int endurance = 0; // Health multiplier
+    private int strength = 0; // Ability to use equipment without penalties, carrying capacity
+    private int dexterity = 0; // Hit chance, dodge chance, crit chance percentage
+    private int intelligence = 0; // Magic damage + hit chance, xp gain, perception ability
 
     /**
      * Creates a new MovableEntity object
+     *
+     * Default values for stats are 0 and 100 for health.
+     * Does not use given values if value is less than 0
      *
      * @param health the amount of health the Movable Entity has
      * @param baseDamage the base amount of damage the MovableEntity can inflict
@@ -30,16 +33,34 @@ public class MovableEntity extends Entity {
     public MovableEntity(double health, double baseDamage, int endurance, int strength,
             int dexterity, int intelligence, Location location, char character) {
         super(location, character);
-        this.baseHealth = health;
-        this.health = health;
-        this.calculateActualHealth();
-        this.defense = 0;
-        this.accuracy = 0;
-        this.baseDamage = baseDamage;
-        this.endurance = endurance;
-        this.strength = strength;
-        this.dexterity = dexterity;
-        this.intelligence = intelligence;
+        if (baseDamage >= 0) {
+            this.baseDamage = baseDamage;
+        }
+        if (endurance >= 0) {
+            this.endurance = endurance;
+        }
+        if (strength >= 0) {
+            this.strength = strength;
+        }
+        if (dexterity >= 0) {
+            this.dexterity = dexterity;
+        }
+        if (intelligence >= 0) {
+            this.intelligence = intelligence;
+        }
+        
+        if (health >= 0) {
+            this.baseHealth = health;
+        } else {
+            this.baseHealth = 100;
+        }
+        if (health >= 0) {
+            this.health = health;
+            this.calculateActualHealth();
+        } else {
+            this.health = this.getBaseHealth();
+            this.calculateActualHealth();
+        }
     }
 
     /**
@@ -59,7 +80,7 @@ public class MovableEntity extends Entity {
      * multiplies physical damage by 2.5 on critical hits.
      *
      * @param damageType the string representing the damage type ("physical", "magic", or default) to get
-     * @return a double representing the amount of damage inflicted by the specified attack
+     * @return a non negative double representing the amount of damage inflicted by the specified attack
      */
     public double getDamage(String damageType) {
         double damageDealt;
@@ -78,6 +99,9 @@ public class MovableEntity extends Entity {
             default:
                 damageDealt = this.baseDamage;
         }
+        if (damageDealt < 0) {
+            damageDealt = 0.0;
+        }
         return damageDealt;
     }
 
@@ -90,6 +114,9 @@ public class MovableEntity extends Entity {
     public void takeDamage(double damage) {
         double damageTaken = damage;
         damageTaken = damage - (damage * (0.1 * this.defense));
+        if (damage < 0) {
+            damageTaken = 0;
+        }
         this.health -= damageTaken;
     }
 
@@ -108,7 +135,9 @@ public class MovableEntity extends Entity {
      * @param newDamage the new double amount of base damage to set
      */
     public void setBaseDamage(double newDamage) {
-        this.baseDamage = newDamage;
+        if (newDamage >= 0) {
+            this.baseDamage = newDamage;
+        }
     }
 
     /**
@@ -126,7 +155,9 @@ public class MovableEntity extends Entity {
      * @param newDefense a double representing the new amount of defense to set
      */
     public void setDefense(double newDefense) {
-        this.defense = newDefense;
+        if (newDefense >= 0) {
+            this.defense = newDefense;
+        }
     }
 
     /**
@@ -144,7 +175,9 @@ public class MovableEntity extends Entity {
      * @param newAccuracy a double representing the new attack accuracy to set
      */
     public void setAccuracy(double newAccuracy) {
-        this.accuracy = newAccuracy;
+        if (newAccuracy >= 0) {
+            this.accuracy = newAccuracy;
+        }
     }
 
     /**
@@ -162,7 +195,11 @@ public class MovableEntity extends Entity {
      * @param health a double representing the new level of health to set
      */
     public void setHealth(double health) {
-        this.health = health;
+        if (health >= 0) {
+            this.health = health;
+        } else {
+            this.health = 0;
+        }
     }
 
     /**
@@ -189,7 +226,9 @@ public class MovableEntity extends Entity {
      * @param endurance an integer representing a new endurance amount to set
      */
     public void setEndurance(int endurance) {
-        this.endurance = endurance;
+        if (endurance >= 0) {
+            this.endurance = endurance;
+        }
     }
 
     /**
@@ -207,7 +246,9 @@ public class MovableEntity extends Entity {
      * @param strength an integer representing a new strength to set
      */
     public void setStrength(int strength) {
-        this.strength = strength;
+        if (strength >= 0) {
+            this.strength = strength;
+        }
     }
 
     /**
@@ -222,10 +263,12 @@ public class MovableEntity extends Entity {
     /**
      * Sets a new amount of dexterity to the current MovableEntity instance
      *
-     * @param dext an integer representing the new dexterity to set
+     * @param dexterity an integer representing the new dexterity to set
      */
-    public void setDexterity(int dext) {
-        this.dexterity = dext;
+    public void setDexterity(int dexterity) {
+        if (dexterity >= 0) {
+            this.dexterity = dexterity;
+        }
     }
 
     /**
@@ -240,10 +283,12 @@ public class MovableEntity extends Entity {
     /**
      * Sets a new intelligence amount to the current MovableEntity
      *
-     * @param intel an integer representing the new intelligence amount to set
+     * @param intelligence an integer representing the new intelligence amount to set
      */
-    public void setIntelligence(int intel) {
-        this.intelligence = intel;
+    public void setIntelligence(int intelligence) {
+        if (intelligence >= 0) {
+            this.intelligence = intelligence;
+        }
     }
 
     /**
