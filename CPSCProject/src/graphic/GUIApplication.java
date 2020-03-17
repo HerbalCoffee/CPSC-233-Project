@@ -1,6 +1,7 @@
 package graphic;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.Scene;
@@ -170,7 +171,7 @@ public class GUIApplication extends Application {
                         playerGridPane.getChildren().clear();
                         finalThePlayer.moveUp(theMap);
                         playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
-                        doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane);
+                        doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane, attackButton);
                         playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
                         playerDamage.setText("  Damage: " + Math.round(finalThePlayer.getDamage("")));
                     } catch (Exception e) {
@@ -181,7 +182,7 @@ public class GUIApplication extends Application {
                         playerGridPane.getChildren().clear();
                         finalThePlayer.moveDown(theMap);
                         playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
-                        doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane);
+                        doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane, attackButton);
                         playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
                         playerDamage.setText("  Damage: " + Math.round(finalThePlayer.getDamage("")));
                     } catch (Exception e) {
@@ -192,7 +193,7 @@ public class GUIApplication extends Application {
                         playerGridPane.getChildren().clear();
                         finalThePlayer.moveLeft(theMap);
                         playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
-                        doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane);
+                        doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane, attackButton);
                         playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
                         playerDamage.setText("  Damage: " + Math.round(finalThePlayer.getDamage("")));
                     } catch (Exception e) {
@@ -203,7 +204,7 @@ public class GUIApplication extends Application {
                         playerGridPane.getChildren().clear();
                         finalThePlayer.moveRight(theMap);
                         playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
-                        doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane);
+                        doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane, attackButton);
                         playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
                         playerDamage.setText("  Damage: " + Math.round(finalThePlayer.getDamage("")));
                     } catch (Exception e) {
@@ -341,7 +342,7 @@ public class GUIApplication extends Application {
      * @param playerPane the GridPane on which the player is spawned
      */
 
-    public void doSpecialActions(Map theMap, Player aPlayer, GridPane entityPane, GridPane playerPane) {
+    public void doSpecialActions(Map theMap, Player aPlayer, GridPane entityPane, GridPane playerPane, Button attackButton) {
         if (theMap.getElement(aPlayer.getLocation()) != null) {
             char currInLoc = theMap.getElement(aPlayer.getLocation()).getChar();
             if (currInLoc == 'I') {
@@ -436,4 +437,103 @@ public class GUIApplication extends Application {
 
     }
 
+    public void doSpecialActions2(Map theMap, Player aPlayer, GridPane entityPane, GridPane playerPane, Button attackButton) {
+        if (theMap.getElement(aPlayer.getLocation()) != null) {
+            char currInLoc = theMap.getElement(aPlayer.getLocation()).getChar();
+            if (currInLoc == 'I') {
+                aPlayer.addWeapon((Weapon) theMap.getElement(aPlayer.getLocation()));
+                ImageView i = null;
+                for (Node node : entityPane.getChildren()) {
+                    if (node instanceof ImageView && entityPane.getRowIndex(node) == aPlayer.getLocation().getY() && entityPane.getColumnIndex(node) == aPlayer.getLocation().getX()) {
+                        i = (ImageView) node;
+                    }
+                }
+                entityPane.getChildren().remove(i);
+                System.out.println("You picked up an Iron Sword!");
+            }
+            if (currInLoc == 'H') {
+                aPlayer.addCollectible((Collectible) theMap.getElement(aPlayer.getLocation()));
+                ImageView i = null;
+                for (Node node : entityPane.getChildren()) {
+                    if (node instanceof ImageView && entityPane.getRowIndex(node) == aPlayer.getLocation().getY() && entityPane.getColumnIndex(node) == aPlayer.getLocation().getX()) {
+                        i = (ImageView) node;
+                    }
+                }
+                entityPane.getChildren().remove(i);
+                System.out.println("You picked up a health potion!");
+            }
+            if (currInLoc == 'E') {
+                //Set-up for enemy encounters
+                Enemy anEnemy = null;
+                boolean inBattle = true;
+                //Find the enemy in the list that the player encountered
+                for (Enemy e : theMap.enemyList) {
+                    if ((e.getLocation().getX() == aPlayer.getLocation().getX()) && (e.getLocation().getY() == aPlayer.getLocation().getY())) {
+                        anEnemy = e;
+                    }
+                }
+
+
+                //Start of enemy battle
+                while (anEnemy.getHealth() > 0 && aPlayer.getHealth() >= 0) {
+
+                    Enemy finalAnEnemy = anEnemy;
+                    boolean finalInBattle = inBattle;
+                    attackButton.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override public void handle(ActionEvent e) {
+                            if (finalInBattle){
+                                aPlayer.attack(finalAnEnemy);
+                                aPlayer.takeDamage(finalAnEnemy.getDamage(""));
+                                Alert details = new Alert(Alert.AlertType.INFORMATION);
+                                details.setContentText("Player Health: " + Math.round(aPlayer.getHealth()) + "   Enemy Health: " + finalAnEnemy.getHealth());
+                                details.show();
+
+
+                            }
+                        }
+                    });
+
+                    if (aPlayer.getHealth() <= 0) {
+                        anEnemy.setHealth(0);
+                        Alert deathMessage = new Alert(Alert.AlertType.WARNING);
+                        deathMessage.setContentText("You Died!");
+                        deathMessage.show();
+                        System.exit(0);
+                    }
+                }
+                if (anEnemy.getHealth() <= 0 && aPlayer.getHealth() > 0) {
+                    System.out.println("You killed the enemy!");
+                    System.out.println("Player Health: " + aPlayer.getHealth());
+                    ImageView i = null;
+                    for (Node node : entityPane.getChildren()) {
+                        if (node instanceof ImageView && entityPane.getRowIndex(node) == anEnemy.getLocation().getY() && entityPane.getColumnIndex(node) == anEnemy.getLocation().getX()) {
+                            i = (ImageView) node;
+                        }
+                    }
+                    entityPane.getChildren().remove(i);
+                    aPlayer.setLevel(aPlayer.getLevel() + 1);
+                    System.out.println("The Player's Level is: " + aPlayer.getLevel());
+
+                }
+            }
+            if (currInLoc == 'C') {
+                if (theMap.enemyList.isEmpty()) {
+                    System.out.println("You reached the exit! Congratulations!");
+                    System.exit(0);
+                } else {
+                    playerPane.getChildren().clear();
+                    aPlayer.moveDown(theMap);
+                    theMap.replaceElement(new Location(aPlayer.getLocation().getX(), aPlayer.getLocation().getY() - 1), new Exit(new Location(aPlayer.getLocation().getX(), aPlayer.getLocation().getY() - 1)));
+                    try {
+                        playerPane.add(importPlayer(), aPlayer.getLocation().getX(), aPlayer.getLocation().getY());
+                    } catch (Exception ex) {
+                        Logger.getLogger(GUIApplication.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    System.out.println("You cannot use the exit! Not all enemies have been defeated!");
+                }
+            }
+
+        }
+
+    }
 }
