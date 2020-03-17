@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.Scene;
 import javafx.scene.Group;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -63,6 +64,7 @@ public class GUIApplication extends Application {
         GridPane entityGridPane = new GridPane();
         GridPane playerGridPane = new GridPane();
         GridPane hudGridPane = new GridPane();
+        GridPane attackButtonPane = new GridPane();
 
         int fontSize = 18;
         Label playerHealth = new Label("  Health: ");
@@ -88,6 +90,7 @@ public class GUIApplication extends Application {
             entityGridPane.getColumnConstraints().add(colConst);
             playerGridPane.getColumnConstraints().add(colConst);
             hudGridPane.getColumnConstraints().add(colConst);
+            attackButtonPane.getColumnConstraints().add(colConst);
         }
         for (int i = 0; i < numRows; i++) {
             RowConstraints rowConst = new RowConstraints();
@@ -96,6 +99,7 @@ public class GUIApplication extends Application {
             entityGridPane.getRowConstraints().add(rowConst);
             playerGridPane.getRowConstraints().add(rowConst);
             hudGridPane.getRowConstraints().add(rowConst);
+            attackButtonPane.getRowConstraints().add(rowConst);
         }
         //End of Yang Liu's Contributions
         
@@ -143,10 +147,13 @@ public class GUIApplication extends Application {
 
         hudGridPane.add(playerHealth, 12, 0, 3, 3);
         hudGridPane.add(playerDamage, 12, 1, 3, 3);
+        Button attackButton = new Button("Attack");
+        attackButtonPane.add(attackButton,13,7,1,3);
         baseStackPane.getChildren().add(mapGridPane);
         baseStackPane.getChildren().add(entityGridPane);
         baseStackPane.getChildren().add(playerGridPane);
         baseStackPane.getChildren().add(hudGridPane);
+        baseStackPane.getChildren().add(attackButtonPane);
         root.getChildren().add(baseStackPane);
         primaryStage.setTitle("Dungeon Disaster");
         primaryStage.setScene(scene);
@@ -428,4 +435,5 @@ public class GUIApplication extends Application {
         }
 
     }
+
 }
