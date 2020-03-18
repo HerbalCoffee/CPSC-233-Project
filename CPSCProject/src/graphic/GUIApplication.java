@@ -149,7 +149,7 @@ public class GUIApplication extends Application {
         hudGridPane.add(playerHealth, 12, 0, 3, 3);
         hudGridPane.add(playerDamage, 12, 1, 3, 3);
         Button attackButton = new Button("Attack");
-        attackButtonPane.add(attackButton,13,7,1,3);
+        attackButtonPane.add(attackButton,13,7,2,3);
         baseStackPane.getChildren().add(mapGridPane);
         baseStackPane.getChildren().add(entityGridPane);
         baseStackPane.getChildren().add(playerGridPane);
