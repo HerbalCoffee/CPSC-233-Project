@@ -40,6 +40,10 @@ import models.*;
 
 public class GUIApplication extends Application {
     
+    private static boolean inBattle = false;
+    private static Enemy currentEnemy;
+
+
     /**
      * Main method for running the GUI application
      * 
@@ -166,54 +170,99 @@ public class GUIApplication extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if (event.getCode() == KeyCode.W) {
-                    try {
-                        playerGridPane.getChildren().clear();
-                        finalThePlayer.moveUp(theMap);
-                        playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
-                        doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane, attackButton);
+                if (inBattle == false) {
+                    if (event.getCode() == KeyCode.W) {
+                        try {
+                            playerGridPane.getChildren().clear();
+                            finalThePlayer.moveUp(theMap);
+                            playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
+                            doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane);
+                            playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
+                            playerDamage.setText("  Damage: " + Math.round(finalThePlayer.getDamage("")));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else if (event.getCode() == KeyCode.S) {
+                        try {
+                            playerGridPane.getChildren().clear();
+                            finalThePlayer.moveDown(theMap);
+                            playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
+                            doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane);
+                            playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
+                            playerDamage.setText("  Damage: " + Math.round(finalThePlayer.getDamage("")));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else if (event.getCode() == KeyCode.A) {
+                        try {
+                            playerGridPane.getChildren().clear();
+                            finalThePlayer.moveLeft(theMap);
+                            playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
+                            doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane);
+                            playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
+                            playerDamage.setText("  Damage: " + Math.round(finalThePlayer.getDamage("")));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else if (event.getCode() == KeyCode.D) {
+                        try {
+                            playerGridPane.getChildren().clear();
+                            finalThePlayer.moveRight(theMap);
+                            playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
+                            doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane);
+                            playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
+                            playerDamage.setText("  Damage: " + Math.round(finalThePlayer.getDamage("")));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else if (event.getCode() == KeyCode.H) {
+                        finalThePlayer.useHealthPotion();
                         playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
                         playerDamage.setText("  Damage: " + Math.round(finalThePlayer.getDamage("")));
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
-                } else if (event.getCode() == KeyCode.S) {
-                    try {
-                        playerGridPane.getChildren().clear();
-                        finalThePlayer.moveDown(theMap);
-                        playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
-                        doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane, attackButton);
-                        playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
-                        playerDamage.setText("  Damage: " + Math.round(finalThePlayer.getDamage("")));
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                }
+            }
+        });
+
+        attackButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                if (inBattle){
+
+                    finalThePlayer.attack(currentEnemy);
+                    finalThePlayer.takeDamage(currentEnemy.getDamage(""));
+
+
+                    if (finalThePlayer.getHealth() <= 0) {
+                        currentEnemy.setHealth(0);
+                        inBattle = false;
+                        Alert deathMessage = new Alert(Alert.AlertType.WARNING);
+                        deathMessage.setContentText("You Died!");
+                        deathMessage.show();
+                        System.exit(0);
                     }
-                } else if (event.getCode() == KeyCode.A) {
-                    try {
-                        playerGridPane.getChildren().clear();
-                        finalThePlayer.moveLeft(theMap);
-                        playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
-                        doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane, attackButton);
-                        playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
-                        playerDamage.setText("  Damage: " + Math.round(finalThePlayer.getDamage("")));
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    if (currentEnemy.getHealth() <= 0 && finalThePlayer.getHealth() > 0) {
+
+                        inBattle = false;
+                        finalThePlayer.setLevel(finalThePlayer.getLevel() + 1);
+                        Alert winMessage = new Alert(Alert.AlertType.INFORMATION);
+                        winMessage.setContentText("You killed the enemy! Player Health: " + Math.round(finalThePlayer.getHealth()) + " Player Level: " + Math.round(finalThePlayer.getLevel()));
+                        winMessage.show();
+
+                        ImageView i = null;
+                        for (Node node : entityGridPane.getChildren()) {
+                            if (node instanceof ImageView && entityGridPane.getRowIndex(node) == currentEnemy.getLocation().getY() && entityGridPane.getColumnIndex(node) == currentEnemy.getLocation().getX()) {
+                                i = (ImageView) node;
+                            }
+                        }
+                        entityGridPane.getChildren().remove(i);
+                        theMap.enemyList.remove(currentEnemy);
                     }
-                } else if (event.getCode() == KeyCode.D) {
-                    try {
-                        playerGridPane.getChildren().clear();
-                        finalThePlayer.moveRight(theMap);
-                        playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
-                        doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane, attackButton);
-                        playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
-                        playerDamage.setText("  Damage: " + Math.round(finalThePlayer.getDamage("")));
-                    } catch (Exception e) {
-                        e.printStackTrace();
+
+                    if (inBattle){
+                        Alert battleDetails = new Alert(Alert.AlertType.INFORMATION);
+                        battleDetails.setContentText("Player Health: " + Math.round(finalThePlayer.getHealth()) + "   Enemy Health: " + Math.round(currentEnemy.getHealth()));
+                        battleDetails.show();
                     }
-                } else if (event.getCode() == KeyCode.H) {
-                    finalThePlayer.useHealthPotion();
-                    playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
-                    playerDamage.setText("  Damage: " + Math.round(finalThePlayer.getDamage("")));
                 }
             }
         });
@@ -342,7 +391,7 @@ public class GUIApplication extends Application {
      * @param playerPane the GridPane on which the player is spawned
      */
 
-    public void doSpecialActions(Map theMap, Player aPlayer, GridPane entityPane, GridPane playerPane, Button attackButton) {
+    public void doSpecialActions2(Map theMap, Player aPlayer, GridPane entityPane, GridPane playerPane) {
         if (theMap.getElement(aPlayer.getLocation()) != null) {
             char currInLoc = theMap.getElement(aPlayer.getLocation()).getChar();
             if (currInLoc == 'I') {
@@ -437,7 +486,7 @@ public class GUIApplication extends Application {
 
     }
 
-    public void doSpecialActions2(Map theMap, Player aPlayer, GridPane entityPane, GridPane playerPane, Button attackButton) {
+    public void doSpecialActions(Map theMap, Player aPlayer, GridPane entityPane, GridPane playerPane) {
         if (theMap.getElement(aPlayer.getLocation()) != null) {
             char currInLoc = theMap.getElement(aPlayer.getLocation()).getChar();
             if (currInLoc == 'I') {
@@ -464,57 +513,16 @@ public class GUIApplication extends Application {
             }
             if (currInLoc == 'E') {
                 //Set-up for enemy encounters
-                Enemy anEnemy = null;
-                boolean inBattle = true;
+                inBattle = true;
                 //Find the enemy in the list that the player encountered
                 for (Enemy e : theMap.enemyList) {
                     if ((e.getLocation().getX() == aPlayer.getLocation().getX()) && (e.getLocation().getY() == aPlayer.getLocation().getY())) {
-                        anEnemy = e;
+                        currentEnemy = e;
                     }
                 }
-
-
-                //Start of enemy battle
-                while (anEnemy.getHealth() > 0 && aPlayer.getHealth() >= 0) {
-
-                    Enemy finalAnEnemy = anEnemy;
-                    boolean finalInBattle = inBattle;
-                    attackButton.setOnAction(new EventHandler<ActionEvent>() {
-                        @Override public void handle(ActionEvent e) {
-                            if (finalInBattle){
-                                aPlayer.attack(finalAnEnemy);
-                                aPlayer.takeDamage(finalAnEnemy.getDamage(""));
-                                Alert details = new Alert(Alert.AlertType.INFORMATION);
-                                details.setContentText("Player Health: " + Math.round(aPlayer.getHealth()) + "   Enemy Health: " + finalAnEnemy.getHealth());
-                                details.show();
-
-
-                            }
-                        }
-                    });
-
-                    if (aPlayer.getHealth() <= 0) {
-                        anEnemy.setHealth(0);
-                        Alert deathMessage = new Alert(Alert.AlertType.WARNING);
-                        deathMessage.setContentText("You Died!");
-                        deathMessage.show();
-                        System.exit(0);
-                    }
-                }
-                if (anEnemy.getHealth() <= 0 && aPlayer.getHealth() > 0) {
-                    System.out.println("You killed the enemy!");
-                    System.out.println("Player Health: " + aPlayer.getHealth());
-                    ImageView i = null;
-                    for (Node node : entityPane.getChildren()) {
-                        if (node instanceof ImageView && entityPane.getRowIndex(node) == anEnemy.getLocation().getY() && entityPane.getColumnIndex(node) == anEnemy.getLocation().getX()) {
-                            i = (ImageView) node;
-                        }
-                    }
-                    entityPane.getChildren().remove(i);
-                    aPlayer.setLevel(aPlayer.getLevel() + 1);
-                    System.out.println("The Player's Level is: " + aPlayer.getLevel());
-
-                }
+                Alert battleMessage = new Alert(Alert.AlertType.WARNING);
+                battleMessage.setContentText("You Encountered an enemy! Press the Attack Button to Fight!");
+                battleMessage.show();
             }
             if (currInLoc == 'C') {
                 if (theMap.enemyList.isEmpty()) {
