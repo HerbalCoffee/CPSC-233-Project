@@ -170,7 +170,7 @@ public class GUIApplication extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if (inBattle == false) {
+                if (!inBattle) {
                     if (event.getCode() == KeyCode.W) {
                         try {
                             playerGridPane.getChildren().clear();
@@ -247,7 +247,7 @@ public class GUIApplication extends Application {
                         Alert winMessage = new Alert(Alert.AlertType.INFORMATION);
                         winMessage.setContentText("You killed the enemy! Player Health: " + Math.round(finalThePlayer.getHealth()) + " Player Level: " + Math.round(finalThePlayer.getLevel()));
                         winMessage.show();
-
+                        
                         ImageView i = null;
                         for (Node node : entityGridPane.getChildren()) {
                             if (node instanceof ImageView && entityGridPane.getRowIndex(node) == currentEnemy.getLocation().getY() && entityGridPane.getColumnIndex(node) == currentEnemy.getLocation().getX()) {
@@ -255,7 +255,7 @@ public class GUIApplication extends Application {
                             }
                         }
                         entityGridPane.getChildren().remove(i);
-                        theMap.enemyList.remove(currentEnemy);
+                        theMap.removeEnemy(currentEnemy);
                     }
 
                     if (inBattle){

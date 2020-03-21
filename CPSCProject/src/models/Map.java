@@ -115,6 +115,7 @@ public class Map {
      * @param newEnemy the enemy to be removed from the map and enemyList
      */
     public void removeEnemy(Enemy newEnemy) {
+        this.mapLayout[newEnemy.getLocation().getY()][newEnemy.getLocation().getX()] = null;
         enemyList.remove(newEnemy);
     }
 
