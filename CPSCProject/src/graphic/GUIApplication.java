@@ -32,6 +32,7 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import java.io.FileInputStream;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.*;
@@ -391,7 +392,7 @@ public class GUIApplication extends Application {
      * @param playerPane the GridPane on which the player is spawned
      */
 
-    public void doSpecialActions2(Map theMap, Player aPlayer, GridPane entityPane, GridPane playerPane) {
+    public void doSpecialActions(Map theMap, Player aPlayer, GridPane entityPane, GridPane playerPane) throws InterruptedException {
         if (theMap.getElement(aPlayer.getLocation()) != null) {
             char currInLoc = theMap.getElement(aPlayer.getLocation()).getChar();
             if (currInLoc == 'I') {
@@ -403,7 +404,9 @@ public class GUIApplication extends Application {
                     }
                 }
                 entityPane.getChildren().remove(i);
-                System.out.println("You picked up an Iron Sword!");
+                Alert ironSwordMessage = new Alert(Alert.AlertType.INFORMATION);
+                ironSwordMessage.setContentText("You picked up an Iron Sword!");
+                ironSwordMessage.show();
             }
             if (currInLoc == 'H') {
                 aPlayer.addCollectible((Collectible) theMap.getElement(aPlayer.getLocation()));
@@ -414,102 +417,9 @@ public class GUIApplication extends Application {
                     }
                 }
                 entityPane.getChildren().remove(i);
-                System.out.println("You picked up a health potion!");
-            }
-            if (currInLoc == 'E') {
-                Scanner control = new Scanner(System.in);
-                String direction;
-                //Set-up for enemy encounters
-                Enemy anEnemy = null;
-                //Find the enemy in the list that the player encountered
-                for (Enemy e : theMap.enemyList) {
-                    if ((e.getLocation().getX() == aPlayer.getLocation().getX()) && (e.getLocation().getY() == aPlayer.getLocation().getY())) {
-                        anEnemy = e;
-                    }
-                }
-                //Start of enemy battle
-                while (anEnemy.getHealth() > 0 && aPlayer.getHealth() >= 0) {
-                    System.out.println("Player Health: " + Math.round(aPlayer.getHealth()));
-                    System.out.println("Enemy Health: " + anEnemy.getHealth());
-                    System.out.println("Press A to attack!");
-                    direction = control.next();
-                    if (direction.equalsIgnoreCase("a")) {
-                        aPlayer.attack(anEnemy);
-                        System.out.println("The enemy attacked!");
-                        aPlayer.takeDamage(anEnemy.getDamage(direction));
-
-                    } else {
-                        System.out.println("Invalid Move! The enemy attacked when you were waiting!");
-                        aPlayer.takeDamage(anEnemy.getDamage(direction));
-                    }
-
-                    if (aPlayer.getHealth() <= 0) {
-                        anEnemy.setHealth(0);
-                        System.out.println("You died!");
-                        System.exit(0);
-                    }
-                }
-                if (anEnemy.getHealth() <= 0 && aPlayer.getHealth() > 0) {
-                    System.out.println("You killed the enemy!");
-                    System.out.println("Player Health: " + aPlayer.getHealth());
-                    theMap.removeEnemy(anEnemy);
-                    ImageView i = null;
-                    for (Node node : entityPane.getChildren()) {
-                        if (node instanceof ImageView && entityPane.getRowIndex(node) == anEnemy.getLocation().getY() && entityPane.getColumnIndex(node) == anEnemy.getLocation().getX()) {
-                            i = (ImageView) node;
-                        }
-                    }
-                    entityPane.getChildren().remove(i);
-                    aPlayer.setLevel(aPlayer.getLevel() + 1);
-                    System.out.println("The Player's Level is: " + aPlayer.getLevel());
-
-                }
-            }
-            if (currInLoc == 'C') {
-                if (theMap.enemyList.isEmpty()) {
-                    System.out.println("You reached the exit! Congratulations!");
-                    System.exit(0);
-                } else {
-                    playerPane.getChildren().clear();
-                    aPlayer.moveDown(theMap);
-                    theMap.replaceElement(new Location(aPlayer.getLocation().getX(), aPlayer.getLocation().getY() - 1), new Exit(new Location(aPlayer.getLocation().getX(), aPlayer.getLocation().getY() - 1)));
-                    try {
-                        playerPane.add(importPlayer(), aPlayer.getLocation().getX(), aPlayer.getLocation().getY());
-                    } catch (Exception ex) {
-                        Logger.getLogger(GUIApplication.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    System.out.println("You cannot use the exit! Not all enemies have been defeated!");
-                }
-            }
-
-        }
-
-    }
-
-    public void doSpecialActions(Map theMap, Player aPlayer, GridPane entityPane, GridPane playerPane) {
-        if (theMap.getElement(aPlayer.getLocation()) != null) {
-            char currInLoc = theMap.getElement(aPlayer.getLocation()).getChar();
-            if (currInLoc == 'I') {
-                aPlayer.addWeapon((Weapon) theMap.getElement(aPlayer.getLocation()));
-                ImageView i = null;
-                for (Node node : entityPane.getChildren()) {
-                    if (node instanceof ImageView && entityPane.getRowIndex(node) == aPlayer.getLocation().getY() && entityPane.getColumnIndex(node) == aPlayer.getLocation().getX()) {
-                        i = (ImageView) node;
-                    }
-                }
-                entityPane.getChildren().remove(i);
-                System.out.println("You picked up an Iron Sword!");
-            }
-            if (currInLoc == 'H') {
-                aPlayer.addCollectible((Collectible) theMap.getElement(aPlayer.getLocation()));
-                ImageView i = null;
-                for (Node node : entityPane.getChildren()) {
-                    if (node instanceof ImageView && entityPane.getRowIndex(node) == aPlayer.getLocation().getY() && entityPane.getColumnIndex(node) == aPlayer.getLocation().getX()) {
-                        i = (ImageView) node;
-                    }
-                }
-                entityPane.getChildren().remove(i);
-                System.out.println("You picked up a health potion!");
+                Alert healthPotionMessage = new Alert(Alert.AlertType.INFORMATION);
+                healthPotionMessage.setContentText("You picked up a health potion!");
+                healthPotionMessage.show();
             }
             if (currInLoc == 'E') {
                 //Set-up for enemy encounters
@@ -526,7 +436,10 @@ public class GUIApplication extends Application {
             }
             if (currInLoc == 'C') {
                 if (theMap.enemyList.isEmpty()) {
-                    System.out.println("You reached the exit! Congratulations!");
+                    Alert exitMessage = new Alert(Alert.AlertType.INFORMATION);
+                    exitMessage.setContentText("You reached the exit! Congratulations!");
+                    exitMessage.show();
+                    TimeUnit.SECONDS.sleep(3);
                     System.exit(0);
                 } else {
                     playerPane.getChildren().clear();
@@ -537,7 +450,9 @@ public class GUIApplication extends Application {
                     } catch (Exception ex) {
                         Logger.getLogger(GUIApplication.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    System.out.println("You cannot use the exit! Not all enemies have been defeated!");
+                    Alert failedExitMessage = new Alert(Alert.AlertType.WARNING);
+                    failedExitMessage.setContentText("You cannot use the exit! Not all enemies have been defeated!");
+                    failedExitMessage.show();
                 }
             }
 
