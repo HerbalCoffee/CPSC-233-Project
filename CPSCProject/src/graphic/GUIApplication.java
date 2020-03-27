@@ -31,10 +31,12 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import java.io.FileInputStream;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.ButtonType;
 import models.*;
 
 
@@ -175,7 +177,12 @@ public class GUIApplication extends Application {
                     if (event.getCode() == KeyCode.W) {
                         try {
                             playerGridPane.getChildren().clear();
-                            finalThePlayer.moveUp(theMap);
+                            boolean success = finalThePlayer.moveUp(theMap);
+                            if(!success){
+                                Alert wrongMoveMessage = new Alert(Alert.AlertType.INFORMATION);
+                                wrongMoveMessage.setContentText("Invalid Move!");
+                                wrongMoveMessage.show();
+                            }
                             playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
                             doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane);
                             playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
@@ -186,7 +193,12 @@ public class GUIApplication extends Application {
                     } else if (event.getCode() == KeyCode.S) {
                         try {
                             playerGridPane.getChildren().clear();
-                            finalThePlayer.moveDown(theMap);
+                            boolean success = finalThePlayer.moveDown(theMap);
+                            if(!success){
+                                Alert wrongMoveMessage = new Alert(Alert.AlertType.INFORMATION);
+                                wrongMoveMessage.setContentText("Invalid Move!");
+                                wrongMoveMessage.show();
+                            }
                             playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
                             doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane);
                             playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
@@ -197,7 +209,12 @@ public class GUIApplication extends Application {
                     } else if (event.getCode() == KeyCode.A) {
                         try {
                             playerGridPane.getChildren().clear();
-                            finalThePlayer.moveLeft(theMap);
+                            boolean success = finalThePlayer.moveLeft(theMap);
+                            if(!success){
+                                Alert wrongMoveMessage = new Alert(Alert.AlertType.INFORMATION);
+                                wrongMoveMessage.setContentText("Invalid Move!");
+                                wrongMoveMessage.show();
+                            }
                             playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
                             doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane);
                             playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
@@ -208,7 +225,12 @@ public class GUIApplication extends Application {
                     } else if (event.getCode() == KeyCode.D) {
                         try {
                             playerGridPane.getChildren().clear();
-                            finalThePlayer.moveRight(theMap);
+                            boolean success = finalThePlayer.moveRight(theMap);
+                            if(!success){
+                                Alert wrongMoveMessage = new Alert(Alert.AlertType.INFORMATION);
+                                wrongMoveMessage.setContentText("Invalid Move!");
+                                wrongMoveMessage.show();
+                            }
                             playerGridPane.add(importPlayer(), finalThePlayer.getLocation().getX(), finalThePlayer.getLocation().getY());
                             doSpecialActions(theMap, finalThePlayer, entityGridPane, playerGridPane);
                             playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
@@ -217,7 +239,17 @@ public class GUIApplication extends Application {
                             e.printStackTrace();
                         }
                     } else if (event.getCode() == KeyCode.H) {
-                        finalThePlayer.useHealthPotion();
+                        boolean success = finalThePlayer.useHealthPotion();
+                        if(success){
+                            Alert healthPotionMessage = new Alert(Alert.AlertType.INFORMATION);
+                            healthPotionMessage.setContentText("Health Potion Used! \n Player Health: " + finalThePlayer.getHealth());
+                            healthPotionMessage.show();
+                        } else {
+                            Alert healthPotionMessage = new Alert(Alert.AlertType.WARNING);
+                            healthPotionMessage.setContentText("No health potion found in inventory!");
+                            healthPotionMessage.show();
+                        }
+                        
                         playerHealth.setText("  Health: " + Math.round(finalThePlayer.getHealth()));
                         playerDamage.setText("  Damage: " + Math.round(finalThePlayer.getDamage("")));
                     }
@@ -436,11 +468,15 @@ public class GUIApplication extends Application {
             }
             if (currInLoc == 'C') {
                 if (theMap.enemyList.isEmpty()) {
+                    
                     Alert exitMessage = new Alert(Alert.AlertType.INFORMATION);
                     exitMessage.setContentText("You reached the exit! Congratulations!");
-                    exitMessage.show();
-                    TimeUnit.SECONDS.sleep(3);
-                    System.exit(0);
+                    
+                    Optional<ButtonType> result = exitMessage.showAndWait();
+                    if (result.get() == ButtonType.OK) {
+                        System.exit(0);
+                    }           
+                    
                 } else {
                     playerPane.getChildren().clear();
                     aPlayer.moveDown(theMap);

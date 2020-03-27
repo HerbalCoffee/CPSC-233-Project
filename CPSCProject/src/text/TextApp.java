@@ -32,12 +32,13 @@ public class TextApp {
         theMap.replaceElement(thePlayer.getLocation(), thePlayer);
 
         Spawner.spawnEnemies(theMap, 3);
-        
+
         Spawner.spawnConsumable(theMap, 2);
         Spawner.spawnWeapon(theMap, 1);
 
         //Instantiate the game loop control
         boolean run = true;
+        boolean success;
         //Intantiate variables for game control and output
         Scanner control = new Scanner(System.in);
         String direction;
@@ -47,7 +48,7 @@ public class TextApp {
         do {
 
             // Set the player's location
-            theMap.replaceElement(thePlayer.getLocation(),thePlayer);
+            theMap.replaceElement(thePlayer.getLocation(), thePlayer);
 
             theMap.printMap();
 
@@ -60,6 +61,7 @@ public class TextApp {
                 } else {
                     //Otherwise the player will move to the previous position
                     thePlayer.moveDown(theMap);
+
                     theMap.replaceElement(new Location(thePlayer.getLocation().getX(), thePlayer.getLocation().getY() - 1), new Exit(new Location(thePlayer.getLocation().getX(), thePlayer.getLocation().getY() - 1)));
                     special = "";
                 }
@@ -98,7 +100,7 @@ public class TextApp {
                     System.out.println("You killed the enemy!");
                     System.out.println("Player Health: " + thePlayer.getHealth());
                     theMap.removeEnemy(anEnemy);
-                    thePlayer.setLevel(thePlayer.getLevel()+1);
+                    thePlayer.setLevel(thePlayer.getLevel() + 1);
                     System.out.println("The Player's Level is: " + thePlayer.getLevel());
                     special = doSpecialActions(theMap, thePlayer);
                 }
@@ -111,19 +113,37 @@ public class TextApp {
                         run = false;
                         break;
                     case "w":
-                        thePlayer.moveUp(theMap);
+                        success = thePlayer.moveUp(theMap);
+                        if (!success) {
+                            System.out.println("Invalid Move!");
+                        }
                         break;
                     case "a":
-                        thePlayer.moveLeft(theMap);
+                        success = thePlayer.moveLeft(theMap);
+                        if (!success) {
+                            System.out.println("Invalid Move!");
+                        }
                         break;
                     case "s":
-                        thePlayer.moveDown(theMap);
+                        success = thePlayer.moveDown(theMap);
+                        if (!success) {
+                            System.out.println("Invalid Move!");
+                        }
                         break;
                     case "d":
-                        thePlayer.moveRight(theMap);
+                        success = thePlayer.moveRight(theMap);
+                        if (!success) {
+                            System.out.println("Invalid Move!");
+                        }
                         break;
                     case "h":
-                        thePlayer.useHealthPotion();
+                        success = thePlayer.useHealthPotion();
+                        if(success){
+                            System.out.println("Health Potion Used!");
+                            System.out.println("Player Health: " + thePlayer.getHealth());
+                        } else {
+                            System.out.println("No health potion found!");
+                        }
                         break;
                     default:
                         System.out.println("Enter only a w, a, s, d, h or q!");
@@ -152,7 +172,6 @@ public class TextApp {
      * @return String special, a string representing the special action to
      * execute or print
      */
-
     public static String doSpecialActions(Map theMap, Player aPlayer) {
         if (theMap.getElement(aPlayer.getLocation()) != null) {
             char currInLoc = theMap.getElement(aPlayer.getLocation()).getChar();
@@ -177,9 +196,8 @@ public class TextApp {
             }
             return "";
         }
-        
+
         return "";
     }
-
 
 }

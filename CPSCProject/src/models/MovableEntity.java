@@ -296,12 +296,13 @@ public class MovableEntity extends Entity {
      * 
      * @param aMap a map instance
      */
-    public void moveUp(Map aMap) {
+    public boolean moveUp(Map aMap) {
         if (aMap.isValidMove(new Location(this.getLocation().getX(), this.getLocation().getY() - 1))) {
             this.setY(this.getLocation().getY() - 1);
             aMap.replaceElement(new Location(this.getLocation().getX(), this.getLocation().getY() + 1), null);
+            return true;
         } else {
-            System.out.println("Invalid Move!");
+            return false;
         }
     }
 
@@ -310,12 +311,13 @@ public class MovableEntity extends Entity {
      * 
      * @param aMap a map instance
      */
-    public void moveLeft(Map aMap) {
+    public boolean moveLeft(Map aMap) {
         if (aMap.isValidMove(new Location(this.getLocation().getX() - 1, this.getLocation().getY()))) {
             this.setX(this.getLocation().getX() - 1);
             aMap.replaceElement(new Location(this.getLocation().getX() + 1, this.getLocation().getY()), null);
+            return true;
         } else {
-            System.out.println("Invalid Move!");
+            return false;
         }
     }
 
@@ -324,12 +326,13 @@ public class MovableEntity extends Entity {
      * 
      * @param aMap a map instance
      */
-    public void moveDown(Map aMap) {
+    public boolean moveDown(Map aMap) {
         if (aMap.isValidMove(new Location(this.getLocation().getX(), this.getLocation().getY() + 1))) {
             this.setY(this.getLocation().getY() + 1);
             aMap.replaceElement(new Location(this.getLocation().getX(), this.getLocation().getY() - 1), null);
+            return true;
         } else {
-            System.out.println("Invalid Move!");
+            return false;
         }
     }
 
@@ -338,12 +341,13 @@ public class MovableEntity extends Entity {
      * 
      * @param aMap a map instance
      */
-    public void moveRight(Map aMap) {
+    public boolean moveRight(Map aMap) {
         if (aMap.isValidMove(new Location(this.getLocation().getX() + 1, this.getLocation().getY()))) {
             this.setX(this.getLocation().getX() + 1);
             aMap.replaceElement(new Location(this.getLocation().getX() - 1, this.getLocation().getY()), null);
+            return true;
         } else {
-            System.out.println("Invalid Move!");
+            return false;
         }
     }
 }

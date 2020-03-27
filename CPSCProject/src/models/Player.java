@@ -204,7 +204,7 @@ public class Player extends MovableEntity {
      * Uses a health potion in the player's inventory, if one exists
      *
      */
-    public void useHealthPotion() {
+    public boolean useHealthPotion() {
         boolean healthPotionExists = false;
         Consumable potion = null;
         if (!inventory.isEmpty()) {
@@ -218,11 +218,11 @@ public class Player extends MovableEntity {
         if (healthPotionExists) {
             this.setHealth(this.getHealth() + potion.getRestoreAmount());
             this.removeCollectible(potion);
-            System.out.println("Health Potion Used!");
-            System.out.println("Player Health: " + this.getHealth());
-
+            return true;
+            
         } else {
-            System.out.println("No Health Potion was Found in the Inventory!");
+            return false;
+            
         }
     }
 }
