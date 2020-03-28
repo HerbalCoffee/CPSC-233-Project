@@ -473,9 +473,12 @@ public class GUIApplication extends Application {
                     exitMessage.setContentText("You reached the exit! Congratulations!");
                     
                     Optional<ButtonType> result = exitMessage.showAndWait();
-                    if (result.get() == ButtonType.OK) {
+                    
+                    if(!result.isPresent()){
                         System.exit(0);
-                    }           
+                    } else if (result.get() == ButtonType.OK) {
+                        System.exit(0);
+                    }            
                     
                 } else {
                     playerPane.getChildren().clear();
