@@ -5,15 +5,15 @@ import java.util.*;
 public class MovableEntity extends Entity {
 
     // CAN POSSIBLY PUT THESE IN A HASHTABLE LATER ON
-    public double health;
-    public final double baseHealth; // Initial health used to determine additional health gained by endurance
-    public double baseDamage = 0; // Base damage
-    public double accuracy = 0; // Accuracy, determines if an attack hits or misses NOT CURRENTLY USED
-    public double defense = 0; // Defense stat, reduces damage taken. Determined by equipment or preset enemy type
-    public int endurance = 0; // Health multiplier
-    public int strength = 0; // Ability to use equipment without penalties, carrying capacity
-    public int dexterity = 0; // Hit chance, dodge chance, crit chance percentage
-    public int intelligence = 0; // Magic damage + hit chance, xp gain, perception ability
+    private double health;
+    private final double baseHealth; // Initial health used to determine additional health gained by endurance
+    private double baseDamage = 0; // Base damage
+    private double accuracy = 0; // Accuracy, determines if an attack hits or misses NOT CURRENTLY USED
+    private double defense = 0; // Defense stat, reduces damage taken. Determined by equipment or preset enemy type
+    private int endurance = 0; // Health multiplier
+    private int strength = 0; // Ability to use equipment without penalties, carrying capacity
+    private int dexterity = 0; // Hit chance, dodge chance, crit chance percentage
+    private int intelligence = 0; // Magic damage + hit chance, xp gain, perception ability
 
     /**
      * Creates a new MovableEntity object

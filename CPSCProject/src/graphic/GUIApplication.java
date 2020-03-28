@@ -179,7 +179,7 @@ public class GUIApplication extends Application {
                             playerGridPane.getChildren().clear();
                             boolean success = finalThePlayer.moveUp(theMap);
                             if(!success){
-                                Alert wrongMoveMessage = new Alert(Alert.AlertType.INFORMATION);
+                                Alert wrongMoveMessage = new Alert(Alert.AlertType.WARNING);
                                 wrongMoveMessage.setContentText("Invalid Move!");
                                 wrongMoveMessage.show();
                             }
@@ -195,7 +195,7 @@ public class GUIApplication extends Application {
                             playerGridPane.getChildren().clear();
                             boolean success = finalThePlayer.moveDown(theMap);
                             if(!success){
-                                Alert wrongMoveMessage = new Alert(Alert.AlertType.INFORMATION);
+                                Alert wrongMoveMessage = new Alert(Alert.AlertType.WARNING);
                                 wrongMoveMessage.setContentText("Invalid Move!");
                                 wrongMoveMessage.show();
                             }
@@ -211,7 +211,7 @@ public class GUIApplication extends Application {
                             playerGridPane.getChildren().clear();
                             boolean success = finalThePlayer.moveLeft(theMap);
                             if(!success){
-                                Alert wrongMoveMessage = new Alert(Alert.AlertType.INFORMATION);
+                                Alert wrongMoveMessage = new Alert(Alert.AlertType.WARNING);
                                 wrongMoveMessage.setContentText("Invalid Move!");
                                 wrongMoveMessage.show();
                             }
@@ -227,7 +227,7 @@ public class GUIApplication extends Application {
                             playerGridPane.getChildren().clear();
                             boolean success = finalThePlayer.moveRight(theMap);
                             if(!success){
-                                Alert wrongMoveMessage = new Alert(Alert.AlertType.INFORMATION);
+                                Alert wrongMoveMessage = new Alert(Alert.AlertType.WARNING);
                                 wrongMoveMessage.setContentText("Invalid Move!");
                                 wrongMoveMessage.show();
                             }
@@ -242,7 +242,7 @@ public class GUIApplication extends Application {
                         boolean success = finalThePlayer.useHealthPotion();
                         if(success){
                             Alert healthPotionMessage = new Alert(Alert.AlertType.INFORMATION);
-                            healthPotionMessage.setContentText("Health Potion Used! \n Player Health: " + finalThePlayer.getHealth());
+                            healthPotionMessage.setContentText("Health Potion Used! \n Player Health: " + Math.round(finalThePlayer.getHealth()));
                             healthPotionMessage.show();
                         } else {
                             Alert healthPotionMessage = new Alert(Alert.AlertType.WARNING);
