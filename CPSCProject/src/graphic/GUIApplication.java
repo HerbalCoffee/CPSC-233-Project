@@ -242,7 +242,7 @@ public class GUIApplication extends Application {
                         boolean success = finalThePlayer.useHealthPotion();
                         if(success){
                             Alert healthPotionMessage = new Alert(Alert.AlertType.INFORMATION);
-                            healthPotionMessage.setContentText("Health Potion Used! \n Player Health: " + Math.round(finalThePlayer.getHealth()));
+                            healthPotionMessage.setContentText("Health Potion Used! \nPlayer Health: " + Math.round(finalThePlayer.getHealth()));
                             healthPotionMessage.show();
                         } else {
                             Alert healthPotionMessage = new Alert(Alert.AlertType.WARNING);
