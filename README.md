@@ -1,6 +1,6 @@
 # Dungeon Disaster
 #### By **Michael Potemkin, Kirill Larshin, Jeremy Kimotho, Martin Wong**
-#### 08-March-2020
+#### 29-March-2020
 #### Repository: https://github.com/HerbalCoffee/Our-Project-CPSC
 ## Description
 A rogue-like adventure game. The player is able to explore randomly generated maps, collect items and fight enemies in order to battle a final boss.
@@ -11,16 +11,14 @@ A rogue-like adventure game. The player is able to explore randomly generated ma
 1. Ensure that a Java JVM is installed on your machine (run Java -version from the terminal)
 2. Download/Clone this repository
 3. Open the terminal and navigate to the downloaded directory
-4. Navigate to CPSCProject/src/cpscproject
-5. Run javac *.java inside this directory
-6. Navigate to CPSCProject/src
-7. Run java cpscproject.TextApp from inside this directory
-8. Enjoy!
+4. Navigate to CPSCProject/build/classes
+5. Run java text.TextApp from inside this directory
+6. Enjoy!
 ## How to build/run (GUI-Based)
 1. Ensure that a Java JVM is installed on your machine (run Java -version from the terminal)
 2. Download/Clone this repository
 3. Open the terminal and navigate to the downloaded directory
-4. Navigate to CPSCProject/src/cpscproject
+4. Navigate to CPSCProject/src/models
 5. Run javac *.java inside this directory
 6. Navigate to CPSCProject/src
 7. Run java cpscproject.GUIApplication from inside this directory
