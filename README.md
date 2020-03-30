@@ -13,18 +13,22 @@ A rogue-like adventure game. The player is able to explore randomly generated ma
 3. Open the terminal and navigate to the downloaded directory
 4. Navigate to CPSCProject/src/text
 5. Run javac *.java inside this directory
-6. Navigate  to CPSCProject/src
-7. Run java text.TextApp from inside this directory
-8. Enjoy!
+6. Navigate to CPSCProject/src/models
+7. Run javac *.java inside this directory
+8. Navigate  to CPSCProject/src
+9. Run java text.TextApp from inside this directory
+10. Enjoy!
 ## How to build/run (GUI-Based)
 1. Ensure that a Java JVM is installed on your machine (run Java -version from the terminal)
 2. Download/Clone this repository
 3. Open the terminal and navigate to the downloaded directory
 4. Navigate to CPSCProject/src/models
 5. Run javac *.java inside this directory
-6. Navigate to CPSCProject/src
-7. Run java graphic.GUIApplication from inside this directory
-8. Enjoy!
+6. Navigate to CPSCProject/src/graphic
+7. Run javac *.java inside this directory
+8. Navigate to CPSCProject/src
+9. Run java graphic.GUIApplication from inside this directory
+10. Enjoy!
 
 MIT License
 
