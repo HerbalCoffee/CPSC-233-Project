@@ -12,29 +12,29 @@ A rogue-like adventure game. The player is able to explore randomly generated ma
 1. Ensure that a Java JVM is installed on your machine (run Java -version from the terminal)
 2. Download/Clone this repository
 3. Open the terminal and navigate to the downloaded directory
-4. Navigate to CPSCProject/src/text
+4. Navigate to DungeonDisaster/src/text
 5. Run javac *.java inside this directory
-6. Navigate to CPSCProject/src/models
+6. Navigate to DungeonDisaster/src/models
 7. Run javac *.java inside this directory
-8. Navigate  to CPSCProject/src
+8. Navigate  to DungeonDisaster/src
 9. Run java text.TextApp from inside this directory
 10. Enjoy!
 ## How to build/run (GUI-Based)
 1. Ensure that a Java JVM is installed on your machine (run Java -version from the terminal)
 2. Download/Clone this repository
 3. Open the terminal and navigate to the downloaded directory
-4. Navigate to CPSCProject/src/models
+4. Navigate to DungeonDisaster/src/models
 5. Run javac *.java inside this directory
-6. Navigate to CPSCProject/src/graphic
+6. Navigate to DungeonDisaster/src/graphic
 7. Run javac *.java inside this directory
-8. Navigate to CPSCProject/src
+8. Navigate to DungeonDisaster/src
 9. Run java graphic.GUIApplication from inside this directory
 10. Enjoy!
 ## How to test (JUnit)
 1. Ensure that a Java JVM is installed on your machine (run Java -version from the terminal)
 2. Download/Clone this repository
 3. Open the terminal and navigate to the downloaded directory
-4. Navigate to CPSCProject directory
+4. Navigate to DungeonDisaster directory
 5. Run javac -cp .:junit-4.12.jar:hamcrest-core-1.3.jar src/models/*.java inside this directory
 6. Run javac -cp src:junit-4.12.jar:hamcrest-core-1.3.jar test/*.java inside this directory
 7. Run java -cp test:src:junit-4.12.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore MovableEntityTest from inside this directory to run the test
