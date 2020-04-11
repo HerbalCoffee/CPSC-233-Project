@@ -7,6 +7,7 @@ A rogue-like adventure game. The player is able to explore randomly generated ma
 ## Setup/Installation Requirements
 * Java 8 or later
 * JavaFX (For running the GUI version)
+* All testing libraries are provided in this respository for your convenience
 ## How to build/run (Text-Based)
 1. Ensure that a Java JVM is installed on your machine (run Java -version from the terminal)
 2. Download/Clone this repository
@@ -29,6 +30,15 @@ A rogue-like adventure game. The player is able to explore randomly generated ma
 8. Navigate to CPSCProject/src
 9. Run java graphic.GUIApplication from inside this directory
 10. Enjoy!
+## How to test (JUnit)
+1. Ensure that a Java JVM is installed on your machine (run Java -version from the terminal)
+2. Download/Clone this repository
+3. Open the terminal and navigate to the downloaded directory
+4. Navigate to CPSCProject directory
+5. Run javac -cp .:junit-4.12.jar:hamcrest-core-1.3.jar src/models/*.java inside this directory
+6. Run javac -cp src:junit-4.12.jar:hamcrest-core-1.3.jar test/*.java inside this directory
+7. Run java -cp test:src:junit-4.12.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore MovableEntityTest from inside this directory to run the test
+8. JUnit should report "OK" if all tests passed successfully
 
 MIT License
 
