@@ -25,11 +25,10 @@ A rogue-like adventure game. The player is able to explore randomly generated ma
 3. Open the terminal and navigate to the downloaded directory
 4. Navigate to DungeonDisaster/src/models
 5. Run javac *.java inside this directory
-6. Navigate to DungeonDisaster/src/graphic
-7. Run javac *.java inside this directory
-8. Navigate to DungeonDisaster/src
-9. Run java graphic.GUIApplication from inside this directory
-10. Enjoy!
+6. Navigate to DungeonDisaster directory
+7. Run javac -cp src src/graphic/*.java inside this directory
+8. Run java -cp src graphic.GUIApplication from inside this directory
+9. Enjoy!
 ## How to test (JUnit)
 1. Ensure that a Java JVM is installed on your machine (run Java -version from the terminal)
 2. Download/Clone this repository
